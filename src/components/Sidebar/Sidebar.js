@@ -211,54 +211,70 @@ const Sidebar = (props) => {
               </Col>
             </Row>
           </div>
-          {/* Form */}
-          <Form className="mt-4 mb-3 d-md-none">
-            <InputGroup className="input-group-rounded input-group-merge">
-              <Input
-                aria-label="Search"
-                className="form-control-rounded form-control-prepended"
-                placeholder="Search"
-                type="search"
-              />
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>
-                  <span className="fa fa-search" />
-                </InputGroupText>
-              </InputGroupAddon>
-            </InputGroup>
-          </Form>
           {/* Navigation */}
           <Nav navbar>{createLinks(routes)}</Nav>
           {/* Divider */}
           <hr className="my-3" />
           {/* Heading */}
-          <h6 className="navbar-heading text-muted">Documentation</h6>
+          <h6 className="navbar-heading text-muted">Configurações</h6>
           {/* Navigation */}
-          <Nav className="mb-md-3" navbar>
+          <Nav className="mb-md-3 ml-1" navbar>
+            <NavItem className="mb-md-3 ml-1" navbar>
+              <NavLink
+                to={"/admin/cv-list"}
+                tag={NavLinkRRD}
+                onClick={closeCollapse}
+              >
+                Currículos
+              </NavLink>
+            </NavItem>
+            <NavItem className="mb-md-3 ml-1" navbar>
+              <NavLink
+                to={"/admin/group-list"}
+                tag={NavLinkRRD}
+                onClick={closeCollapse}
+              >
+                Grupos
+              </NavLink>
+            </NavItem>
+          </Nav>
+          {/* Divider */}
+          <hr className="my-3" />
+          {/* Heading */}
+          <h6 className="navbar-heading text-muted">Informações</h6>
+          {/* Navigation */}
+          <Nav className="mb-md-3 ml-1" navbar>
             <NavItem>
               <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/overview?ref=adr-admin-sidebar">
-                <i className="ni ni-spaceship" />
-                Getting started
+                Dúvidas Frequentes
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/overview?ref=adr-admin-sidebar">
+                Comentários
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/colors?ref=adr-admin-sidebar">
-                <i className="ni ni-palette" />
-                Foundation
+                Outras informações
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
-                <i className="ni ni-ui-04" />
-                Components
+                Créditos
               </NavLink>
             </NavItem>
           </Nav>
           <Nav className="mb-md-3" navbar>
             <NavItem className="active-pro active">
               <NavLink href="https://www.creative-tim.com/product/argon-dashboard-pro-react?ref=adr-admin-sidebar">
-                <i className="ni ni-spaceship" />
-                Upgrade to PRO
+                <img 
+                  alt="GitHub logo"
+                  src={require('../../assets/img/brand/github-logo.png')} 
+                  // className="ni ni-spaceship" 
+                  style={{width:'20px', marginRight: '15px'}}
+                />
+                By Nabor Mendonça
               </NavLink>
             </NavItem>
           </Nav>

@@ -67,8 +67,8 @@ const Admin = (props) => {
         routes={routes}
         logo={{
           innerLink: "/admin/index",
-          imgSrc: require("../assets/img/brand/argon-react.png"),
-          imgAlt: "...",
+          imgSrc: require("../assets/img/brand/qlattes-logo.png"),
+          imgAlt: "Qlattes",
         }}
       />
       <div className="main-content" ref={mainContent}>

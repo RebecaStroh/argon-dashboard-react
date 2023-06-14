@@ -16,12 +16,11 @@
 
 */
 import { Link } from "react-router-dom";
+
+import React, { useState } from 'react';
 // reactstrap components
 import {
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
+  Button,
   Form,
   FormGroup,
   InputGroupAddon,
@@ -29,79 +28,153 @@ import {
   Input,
   InputGroup,
   Navbar,
-  Nav,
+  Label,
   Container,
   Media,
 } from "reactstrap";
 
 const AdminNavbar = (props) => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [viewType, setViewType] = useState("");
+
+  function handleViewTypeChange(value) {
+    // if ((value == "scoreTableView" || value == "scoreGraphicView") && Object.keys(areaData).length === 0) {
+    //   alert(`Para visualizar a pontuação Qualis, é necessário selecionar uma Área do Conhecimento.`)
+    //   return;
+    // }
+    setViewType(value);
+  }
+
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
         <Container fluid>
-          <Link
-            className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-            to="/"
-          >
-            {props.brandText}
-          </Link>
           <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-            <FormGroup className="mb-0">
+            <FormGroup className="w-100 mb-1">
               <InputGroup className="input-group-alternative">
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="fas fa-search" />
+                    <i className="fas fa-user" />
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input placeholder="Search" type="text" />
               </InputGroup>
             </FormGroup>
+            <FormGroup className="w-100 mb-1">
+              <InputGroup className="input-group-alternative">
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText>
+                    <i className="fas fa-graduation-cap" />
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input
+                  id="exampleSelect"
+                  name="select"
+                  type="select"
+                  className="input-group-alternative"
+                  style={{marginRight: "15px"}}
+                  value={viewType} onChange={e => handleViewTypeChange(e.target.value)}
+                >
+                  <option value="" disabled="true" selected="true" hidden="true">Selecione uma Área do Conhecimento</option>
+                  <option value="undefined">Sem Área do Conhecimento</option>
+                  {/* {allQualisScores.map(greatArea => <optgroup label={greatArea.label}>
+                    {Object.keys(greatArea.areas).map(area => <option value={area}>{greatArea.areas[area].label}</option>)}
+                    </optgroup>)} */}
+                </Input>
+              </InputGroup>
+              <InputGroup className="input-group-alternative">
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText>
+                    <i className="fas fa-chart-bar" />
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input
+                  id="exampleSelect"
+                  name="select"
+                  type="select"
+                  className="input-group-alternative"
+                  style={{marginRight: "15px"}}
+                  value={viewType} onChange={e => handleViewTypeChange(e.target.value)}
+                >
+                  <option value="" disabled="true" selected="true" hidden="true"> Selecione uma visualização</option>
+                  <optgroup label="Classificação">
+                    <option value="qualisTableView">Tabela de classificação Qualis</option>
+                    <option value="qualisGraphicView">Gráfico de classificação Qualis</option>
+                  </optgroup>
+                  <optgroup label="Pontuação">
+                    <option value="scoreTableView">Tabela de pontuação Qualis</option>
+                    <option value="scoreGraphicView">Gráfico de pontuação Qualis</option>
+                  </optgroup>
+                  <optgroup label="Publicações">
+                    <option value="top5View">5 melhores artigos</option>
+                    <option value="top10View">10 melhores artigos</option>
+                  </optgroup>
+                </Input>
+              </InputGroup>
+            </FormGroup>
+            <FormGroup className="w-100">
+              <InputGroup className="input-group-alternative" style={{width:"100px"}}>
+                <Input
+                  id="exampleEmail"
+                  name="initYear"
+                  placeholder="Ano de inicio"
+                  type="text"
+                />
+              </InputGroup>
+              <Label style={{marginLeft: "10px", marginRight: "10px"}}>
+                a
+              </Label>
+              <InputGroup className="input-group-alternative" style={{width:"100px"}}>
+                <Input
+                  id="exampleEmail"
+                  name="endYear"
+                  placeholder="Ano de fim"
+                  type="text"
+                />
+              </InputGroup>
+              <InputGroup className="input-group-alternative">
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText>
+                    <i className="fas fa-calendar-check" />
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input
+                  id="exampleSelect"
+                  name="select"
+                  type="select"
+                  className="input-group-alternative"
+                  style={{marginRight: "15px"}}
+                  value={viewType} onChange={e => handleViewTypeChange(e.target.value)}
+                >
+                  <option value="undefined">Selecione um periodo</option>
+                  <option value="last5">Últimos 5 anos</option>
+                  <option value="last10">Últimos 10 anos</option>
+                  <option value="all" selected="true"> Todo o período do CV</option>
+                </Input>
+              </InputGroup>
+              <InputGroupText style={{backgroundColor: "transparent", border: "none"}}>
+                <Input
+                  addon
+                  aria-label="Checkbox for following text input"
+                  type="checkbox"
+                />
+                <Label style={{marginLeft: "10px"}}>
+                  Exibir estatísticas
+                </Label>
+              </InputGroupText>
+            </FormGroup>
           </Form>
-          <Nav className="align-items-center d-none d-md-flex" navbar>
-            <UncontrolledDropdown nav>
-              <DropdownToggle className="pr-0" nav>
-                <Media className="align-items-center">
-                  <span className="avatar avatar-sm rounded-circle">
-                    <img
-                      alt="..."
-                      src={require("../../assets/img/theme/team-4-800x800.jpg")}
-                    />
-                  </span>
-                  <Media className="ml-2 d-none d-lg-block">
-                    <span className="mb-0 text-sm font-weight-bold">
-                      Jessica Jones
-                    </span>
-                  </Media>
-                </Media>
-              </DropdownToggle>
-              <DropdownMenu className="dropdown-menu-arrow" right>
-                <DropdownItem className="noti-title" header tag="div">
-                  <h6 className="text-overflow m-0">Welcome!</h6>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-single-02" />
-                  <span>My profile</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-settings-gear-65" />
-                  <span>Settings</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-calendar-grid-58" />
-                  <span>Activity</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-support-16" />
-                  <span>Support</span>
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-                  <i className="ni ni-user-run" />
-                  <span>Logout</span>
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </Nav>
+          
+          <div className="col text-right">
+            <Button
+              color="primary"
+              href="#pablo"
+              onClick={(e) => e.preventDefault()}
+              size="sm"
+            >
+              Exportar dados
+            </Button>
+          </div>
         </Container>
       </Navbar>
     </>
