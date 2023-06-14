@@ -11,7 +11,11 @@ import {
 // core components
 
 const DataTable = ({
-  tableName
+  tableName,
+  init,
+  end,
+  stats,
+  showStatistics
 }) => {
   const qualisScores = {
     A1: 100,
@@ -27,7 +31,7 @@ const DataTable = ({
   };
 
   // Init data arrays
-  const years = Array.from({ length: 2023 - 1993 + 1 }, (_, index) => 1993 + index).reverse();
+  const years = Array.from({ length: end - init + 1 }, (_, index) => init + index).reverse();
   const qualis = {
     A1: Array(years.length).fill(0),
     A2: Array(years.length).fill(0),
@@ -113,30 +117,32 @@ const DataTable = ({
                 }}>
                 {footer.map(item => <th scope="col">{item}</th>)}
               </tr>
-              <tr style={{
-                  display: 'table',
-                  width: '98.5%'
-                }}>
-                {mean.map(item => <th scope="col">{item}</th>)}
-              </tr>
-              <tr style={{
-                  display: 'table',
-                  width: '98.5%'
-                }}>
-                {mediana.map(item => <th scope="col">{item}</th>)}
-              </tr>
-              <tr style={{
-                  display: 'table',
-                  width: '98.5%'
-                }}>
-                {tendencia.map(item => <th scope="col">{item}</th>)}
-              </tr>
-              <tr style={{
-                  display: 'table',
-                  width: '98.5%'
-                }}>
-                {bestYear.map(item => <th scope="col">{item}</th>)}
-              </tr>
+              {showStatistics && (<>
+                <tr style={{
+                    display: 'table',
+                    width: '98.5%'
+                  }}>
+                  {mean.map(item => <th scope="col">{item}</th>)}
+                </tr>
+                <tr style={{
+                    display: 'table',
+                    width: '98.5%'
+                  }}>
+                  {mediana.map(item => <th scope="col">{item}</th>)}
+                </tr>
+                <tr style={{
+                    display: 'table',
+                    width: '98.5%'
+                  }}>
+                  {tendencia.map(item => <th scope="col">{item}</th>)}
+                </tr>
+                <tr style={{
+                    display: 'table',
+                    width: '98.5%'
+                  }}>
+                  {bestYear.map(item => <th scope="col">{item}</th>)}
+                </tr>
+              </>)}
             </tfoot>
           </Table>
         </Card>
