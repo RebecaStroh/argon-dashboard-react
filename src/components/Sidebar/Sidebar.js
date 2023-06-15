@@ -211,15 +211,26 @@ const Sidebar = (props) => {
               </Col>
             </Row>
           </div>
-          {/* Navigation */}
-          <Nav navbar>{createLinks(routes)}</Nav>
+          {/* Navigation - Visualização */}
+          <Nav navbar>
+            <NavItem className="mb-md-3 ml-1" navbar>
+              <NavLink
+                to={"/admin/index"}
+                tag={NavLinkRRD}
+                onClick={closeCollapse}
+              >
+                Visualização
+              </NavLink>
+            </NavItem>
+          </Nav>
           {/* Divider */}
           <hr className="my-3" />
           {/* Heading */}
           <h6 className="navbar-heading text-muted">Configurações</h6>
           {/* Navigation */}
           <Nav className="mb-md-3 ml-1" navbar>
-            <NavItem className="mb-md-3 ml-1" navbar>
+            {/* Currículos */}
+            <NavItem>
               <NavLink
                 to={"/admin/cv-list"}
                 tag={NavLinkRRD}
@@ -228,7 +239,8 @@ const Sidebar = (props) => {
                 Currículos
               </NavLink>
             </NavItem>
-            <NavItem className="mb-md-3 ml-1" navbar>
+            {/* Grupos */}
+            <NavItem>
               <NavLink
                 to={"/admin/group-list"}
                 tag={NavLinkRRD}
@@ -244,23 +256,40 @@ const Sidebar = (props) => {
           <h6 className="navbar-heading text-muted">Informações</h6>
           {/* Navigation */}
           <Nav className="mb-md-3 ml-1" navbar>
+            {/* Dúvidas frequentes */}
             <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/overview?ref=adr-admin-sidebar">
+              <NavLink 
+                to={"/admin/questions"}
+                tag={NavLinkRRD}
+                onClick={closeCollapse}
+              >
                 Dúvidas Frequentes
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/overview?ref=adr-admin-sidebar">
+              <NavLink 
+                to={"/admin/comments"}
+                tag={NavLinkRRD}
+                onClick={closeCollapse}
+              >
                 Comentários
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/colors?ref=adr-admin-sidebar">
+              <NavLink 
+                to={"/admin/other-infos"}
+                tag={NavLinkRRD}
+                onClick={closeCollapse}
+              >
                 Outras informações
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
+              <NavLink 
+                to={"/admin/credits"}
+                tag={NavLinkRRD}
+                onClick={closeCollapse}
+              >
                 Créditos
               </NavLink>
             </NavItem>
@@ -271,7 +300,6 @@ const Sidebar = (props) => {
                 <img 
                   alt="GitHub logo"
                   src={require('../../assets/img/brand/github-logo.png')} 
-                  // className="ni ni-spaceship" 
                   style={{width:'20px', marginRight: '15px'}}
                 />
                 By Nabor Mendonça
