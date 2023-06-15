@@ -3,8 +3,8 @@ import { useLocation, Route, Routes, Navigate } from "react-router-dom";
 // reactstrap components
 import { Container } from "reactstrap";
 // core components
-import AdminFooter from "components/Footers/AdminFooter.js";
-import Sidebar from "components/Sidebar/Sidebar.js";
+import AdminFooter from "components/AdminFooter.js";
+import Sidebar from "components/Sidebar.js";
 
 import routes from "routes.js";
 
@@ -33,7 +33,7 @@ const Admin = (props) => {
         routes={routes}
         logo={{
           innerLink: "/admin/index",
-          imgSrc: require("../assets/img/brand/qlattes-logo.png"),
+          imgSrc: require("../assets/img/qlattes-logo.png"),
           imgAlt: "Qlattes",
         }}
       />

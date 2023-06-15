@@ -15,7 +15,6 @@ import {
   Navbar,
 } from "reactstrap";
 // core components
-import Header from "components/Headers/Header.js";
 import CVItem from "components/CVItem";
 
 const CVList = () => {
