@@ -153,7 +153,7 @@ const Sidebar = (props) => {
           {/* GitHub */}
           <Nav className="mb-md-3" navbar>
             <NavItem className="active-pro active">
-              <NavLink href="https://www.creative-tim.com/product/argon-dashboard-pro-react?ref=adr-admin-sidebar">
+              <NavLink href="https://github.com/nabormendonca/qlattes">
                 <img 
                   alt="GitHub logo"
                   src={require('../assets/img/github-logo.png')} 

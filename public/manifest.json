@@ -1,15 +1,38 @@
 {
-  "short_name": "Argon Dashboard React",
-  "name": "Argon Dashboard React by Creative Tim",
-  "icons": [
+  "manifest_version": 3,
+  "name": "QLattes",
+  "version": "0.2.1",
+  "description": "react - Automatically annotate the Qualis classification of journal publications listed in CNPq's CV Lattes pages.",
+  "icons": {
+    "16": "images/icon-16.png",
+    "32": "images/icon-32.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
+  },
+  "permissions": ["storage", "downloads"],
+  "action": {
+    "default_icon": "images/icon-16.png",
+    "default_title": "QLattes",
+    "default_popup": "html/popup.html"
+  },
+  "content_scripts": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "matches": [
+        "http://buscatextual.cnpq.br/buscatextual/visualizacv.do*",
+        "https://buscatextual.cnpq.br/buscatextual/visualizacv.do*"
+      ],
+      "js": ["scripts/content.js"],
+      "run_at": "document_idle"
     }
   ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "web_accessible_resources": [
+    {
+      "resources": ["images/*.png", "data/*.json", "html/*.html", "*.html"],
+      "matches": [
+        "http://buscatextual.cnpq.br/*",
+        "https://buscatextual.cnpq.br/*",
+        "file:///*"
+      ]
+    }
+  ]
 }
