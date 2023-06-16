@@ -1,4 +1,5 @@
-import React from "react";
+/*global chrome*/
+import React, { useEffect, useState } from "react";
 import { useLocation, Route, Routes, Navigate } from "react-router-dom";
 // reactstrap components
 import { Container } from "reactstrap";
@@ -6,13 +7,14 @@ import { Container } from "reactstrap";
 import AdminFooter from "components/AdminFooter.js";
 import Sidebar from "components/Sidebar.js";
 
+import { fetchJSON, getLattesData } from '../utils';
 import routes from "routes.js";
 
 const Admin = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     mainContent.current.scrollTop = 0;
@@ -25,6 +27,35 @@ const Admin = (props) => {
       );
     });
   };
+
+  const [allQualisScores, setAllQualisScores] = useState([]);
+  const [area, setArea] = useState({});
+  const [authors, setAuthors] = useState([]);
+
+  async function getInfos() {
+    // Get Qualis Scores
+    setAllQualisScores(await fetchJSON(require("./qualis-scores-by-area-2017-2020.json")));
+    // setAllQualisScores(await fetchJSON(chrome.runtime.getURL('data/qualis-scores-by-area-2017-2020.json')));
+
+    // Update area data (if previously saved in local store)
+    const data = await chrome.storage.local.get(['area_data']);
+    if (Object.keys(data).length > 0) {
+      setArea(data.area_data);
+    }
+
+    // Get Authors
+    getLattesData().then(async (authorList) => {
+      if (authors.length == 0 && authorList.length != 0) setAuthors(authorList);
+    });
+  }
+
+  function updateAuthorsList(authors) {
+    setAuthors(authors);
+  }
+
+  useEffect(() => {
+    getInfos()
+  }, []);
 
   return (
     <>

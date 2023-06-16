@@ -69,7 +69,7 @@ const Sidebar = (props) => {
         <Collapse navbar isOpen={collapseOpen}>
           {/* Navigation - Visualização */}
           <Nav navbar>
-            <NavItem className="mb-md-3 ml-1" navbar>
+            <NavItem className="mb-md-3 ml-1" navbar="true">
               <NavLink
                 to={"/admin/index"}
                 tag={NavLinkRRD}

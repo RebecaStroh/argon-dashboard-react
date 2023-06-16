@@ -78,13 +78,38 @@ export function linearRegression(xData, yData) {
   };
 }
 
+/**
+ * Fetch URL functions
+ */
+
+export async function fetchJSON(url) {
+  var json = [];
+
+  // fetch url
+  const response = await fetch(url);
+
+  // check response status
+  if (response.status === 200) {
+    // get response contents
+    json = await response.json();
+  } else {
+    // log response status code and text
+    console.log(response.status);
+    console.log(response.statusText);
+  }
+
+  return json;
+}
+
 
 /**
  * Data functions
  */
 
 export async function getLattesData() {
-  const lattesData = await chrome.storage.local.get('lattes_data');
+  const module = await import("./dataTest.json");
+  const lattesData = module.default;
+  // const lattesData = await chrome.storage.local.get('lattes_data');
   
   return lattesData['lattes_data'] || {};
 }

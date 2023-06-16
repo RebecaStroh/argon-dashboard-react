@@ -20,7 +20,6 @@ import DataTable from "components/Data/DataTable";
 import DataGraph from "components/Data/DataGraph";
 
 const Index = (props) => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [area, setArea] = useState("oi");
   const [viewType, setViewType] = useState("");
   const [showStatistics, setShowStatistics] = useState(false);
@@ -38,7 +37,7 @@ const Index = (props) => {
   }
   function handleAreaChange(event) {
     // get previous area (if any)
-    var prevArea = area;
+    // var prevArea = area;
 
     // get selected area
     const newArea = event.target.value;
@@ -99,7 +98,7 @@ const Index = (props) => {
       case "last10":
         setInitYearInput(endYear-9);
         break;
-      case "all":
+      default:
         setInitYearInput(initYear);
         break;
     }
@@ -136,8 +135,9 @@ const Index = (props) => {
                   className="input-group-alternative"
                   style={{marginRight: "15px"}}
                   value={area} onChange={e => handleAreaChange(e)}
+                  defaultValue=""
                 >
-                  <option value="" disabled="true" selected="true" hidden="true">Selecione uma Área do Conhecimento</option>
+                  <option value="" disabled={true} hidden={true}>Selecione uma Área do Conhecimento</option>
                   <option value="undefined">Sem Área do Conhecimento</option>
                   {/* {allQualisScores.map(greatArea => <optgroup label={greatArea.label}>
                     {Object.keys(greatArea.areas).map(area => <option value={area}>{greatArea.areas[area].label}</option>)}
@@ -158,8 +158,9 @@ const Index = (props) => {
                   className="input-group-alternative"
                   style={{marginRight: "15px"}}
                   value={viewType} onChange={e => handleViewTypeChange(e.target.value)}
+                  defaultValue=""
                 >
-                  <option value="" disabled="true" selected="true" hidden="true"> Selecione uma visualização</option>
+                  <option value="" disabled={true} hidden={true}> Selecione uma visualização</option>
                   <optgroup label="Classificação" style={{color: "black"}}>
                     <option value="qualisTableView">Tabela de classificação Qualis</option>
                     <option value="qualisGraphicView">Gráfico de classificação Qualis</option>
@@ -219,11 +220,11 @@ const Index = (props) => {
                   className="input-group-alternative"
                   style={{marginRight: "15px"}}
                   onChange={e => handleSelectedPeriod(e.target.value)}
+                  defaultValue="all"
                 >
-                  <option value="" disabled="true" selected="true" hidden="true">Selecione um periodo</option>
                   <option value="last5" style={{color: "black"}}>Últimos 5 anos</option>
                   <option value="last10" style={{color: "black"}}>Últimos 10 anos</option>
-                  <option value="all" selected="true" style={{color: "black"}}> Todo o período do CV</option>
+                  <option value="all" style={{color: "black"}}> Todo o período do CV</option>
                 </Input>
               </InputGroup>
               {/* Statistics */}
@@ -258,12 +259,12 @@ const Index = (props) => {
       </div>
       {/* Page content */}
       <Container className="mt--6" fluid>
-        {viewType == "qualisTableView" && <DataTable tableName="Tabela de classificação Qualis" init={initYearInput} end={endYearInput} stats={"stats"} showStatistics={showStatistics}/>}
-        {viewType == "qualisGraphicView" && <DataGraph graphName="Gráfico de classificação Qualis"/>}
-        {viewType == "scoreTableView" && <DataTable tableName="Tabela de pontuação Qualis" init={initYearInput} end={endYearInput} stats={"stats"} showStatistics={showStatistics}/>}
-        {viewType == "scoreGraphicView" && <DataGraph graphName="Gráfico de pontuação Qualis"/>}
-        {viewType == "top5View" && <DataTable tableName="5 melhores publicações" init={initYearInput} end={endYearInput} stats={"stats"} showStatistics={showStatistics}/>}
-        {viewType == "top10View" && <DataTable tableName="10 melhores publicações" init={initYearInput} end={endYearInput} stats={"stats"} showStatistics={showStatistics}/>}
+        {viewType === "qualisTableView" && <DataTable tableName="Tabela de classificação Qualis" init={initYearInput} end={endYearInput} stats={"stats"} showStatistics={showStatistics}/>}
+        {viewType === "qualisGraphicView" && <DataGraph graphName="Gráfico de classificação Qualis"/>}
+        {viewType === "scoreTableView" && <DataTable tableName="Tabela de pontuação Qualis" init={initYearInput} end={endYearInput} stats={"stats"} showStatistics={showStatistics}/>}
+        {viewType === "scoreGraphicView" && <DataGraph graphName="Gráfico de pontuação Qualis"/>}
+        {viewType === "top5View" && <DataTable tableName="5 melhores publicações" init={initYearInput} end={endYearInput} stats={"stats"} showStatistics={showStatistics}/>}
+        {viewType === "top10View" && <DataTable tableName="10 melhores publicações" init={initYearInput} end={endYearInput} stats={"stats"} showStatistics={showStatistics}/>}
       </Container>
     </>
   );
