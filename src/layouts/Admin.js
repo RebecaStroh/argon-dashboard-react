@@ -7,8 +7,14 @@ import { Container } from "reactstrap";
 import AdminFooter from "components/AdminFooter.js";
 import Sidebar from "components/Sidebar.js";
 
-import { fetchJSON, getLattesData } from '../utils';
-import routes from "routes.js";
+import { getAreasData, getLattesData, getGroups } from '../utils';
+import Index from "views/Index.js";
+import GroupList from "views/GroupList.js";
+import CVList from "views/CVList.js";
+import Comments from "views/Comments";
+import Questions from "views/Questions";
+import OtherInfos from "views/OtherInfos";
+import Credits from "views/Credits";
 
 const Admin = (props) => {
   const mainContent = React.useRef(null);
@@ -20,38 +26,70 @@ const Admin = (props) => {
     mainContent.current.scrollTop = 0;
   }, [location]);
 
-  const getRoutes = (routes) => {
-    return routes.map((prop, key) => {
-      return (
-        <Route path={prop.path} element={prop.component} key={key} exact />
-      );
-    });
-  };
-
   const [allQualisScores, setAllQualisScores] = useState([]);
   const [area, setArea] = useState({});
   const [authors, setAuthors] = useState([]);
+  const [groups, setGroups] = useState([]);
+  const [authorsNameLink, setAuthorsNameLink] = useState([]);
 
   async function getInfos() {
     // Get Qualis Scores
-    setAllQualisScores(await fetchJSON(require("./qualis-scores-by-area-2017-2020.json")));
-    // setAllQualisScores(await fetchJSON(chrome.runtime.getURL('data/qualis-scores-by-area-2017-2020.json')));
+    setAllQualisScores(await getAreasData());
+    setGroups(await getGroups());
+    console.log("veja2:", groups)
 
     // Update area data (if previously saved in local store)
-    const data = await chrome.storage.local.get(['area_data']);
-    if (Object.keys(data).length > 0) {
-      setArea(data.area_data);
-    }
+    // const data = await chrome.storage.local.get(['area_data']);
+    // if (Object.keys(data).length > 0) {
+    //   setArea(data.area_data);
+    // }
 
     // Get Authors
     getLattesData().then(async (authorList) => {
-      if (authors.length == 0 && authorList.length != 0) setAuthors(authorList);
+      if (authors.length == 0 && authorList.length != 0) {
+        setAuthors(authorList);
+        setAuthorsNameLink(Object.entries(authorList).map(author =>( {link: author[0],name: author[1].name})));
+      }
     });
   }
 
-  function updateAuthorsList(authors) {
-    setAuthors(authors);
-  }
+  const routes = [
+    {
+      path: "/index",
+      component: <Index authors={authors} allQualisScores={allQualisScores}/>,
+      layout: "/admin",
+    },
+    {
+      path: "/cv-list",
+      component: <CVList authors={authors}/>,
+      layout: "/admin",
+    },
+    {
+      path: "/group-list",
+      component: <GroupList authors={authors} groups={groups}/>,
+      layout: "/admin",
+    },
+    {
+      path: "/questions",
+      component: <Questions />,
+      layout: "/admin",
+    },
+    {
+      path: "/comments",
+      component: <Comments />,
+      layout: "/admin",
+    },
+    {
+      path: "/other-infos",
+      component: <OtherInfos />,
+      layout: "/admin",
+    },
+    {
+      path: "/credits",
+      component: <Credits />,
+      layout: "/admin",
+    }
+  ];
 
   useEffect(() => {
     getInfos()
@@ -70,7 +108,9 @@ const Admin = (props) => {
       />
       <div className="main-content" ref={mainContent}>
         <Routes>
-          {getRoutes(routes)}
+          {routes.map((prop, key) =>
+            <Route path={prop.path} element={prop.component} key={key} exact />
+          )}
           <Route path="*" element={<Navigate to="/admin/index" replace />} />
         </Routes>
         <Container fluid>

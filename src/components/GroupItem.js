@@ -10,16 +10,19 @@ import CVItem from "./CVItem";
 
 const GroupItem = ({
   groupName,
-  authorsList //TO DO
+  authors
 }) => {
+
+  console.log("my authors", groupName, authors)
   return (
-    <Card className="shadow">
-      <CardHeader className="bg-transparent">
+    <Card className="shadow mt-3">
+      <CardHeader className="bg-transparent" style={{ flexDirection: 'row', display: 'flex', justifyContent: "space-between" }}>
         <h3 className="mb-0">{groupName}</h3>
+        <i className="fas fa-plus" style={{cursor: "pointer"}} onClick={() => { alert("Inserir novo author"); }}/>
       </CardHeader>
       <CardBody>
         <Row className="icon-examples">
-          <CVItem authorName="Stephen Rehen" CVLink="https://react-icons.github.io/react-icons"/>
+          {authors.map(author => <CVItem authorName={author.name} CVLink={author.link}/>)}
         </Row>
       </CardBody>
     </Card>

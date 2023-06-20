@@ -13,7 +13,11 @@ import {
 // core components
 import GroupItem from "components/GroupItem";
 
-const GroupList = () => {
+const GroupList = ({
+  authors,
+  groups
+}) => {
+
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -38,8 +42,13 @@ const GroupList = () => {
       <Container className="mt--9" fluid>
         <Row>
           <div className="col">
-            <GroupItem groupName="Grupo A"/>
-            <GroupItem groupName="Grupo B"/>
+            {Object.entries(groups).map(group =>
+              <GroupItem
+                key={group[0]}
+                groupName={group[1].name}
+                authors={group[1].authors.map(authorLink => ({link: authorLink, name: authors[authorLink].name}))}
+              />
+            )}
           </div>
         </Row>
       </Container>

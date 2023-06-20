@@ -108,9 +108,25 @@ export async function fetchJSON(url) {
 
 export async function getLattesData() {
   const module = await import("./dataTest.json");
-  const lattesData = module.default;
+  const lattesData = await module.default;
   // const lattesData = await chrome.storage.local.get('lattes_data');
   
   return lattesData['lattes_data'] || {};
+}
+
+export async function getAreasData() {
+  const module = await import("./qualis-scores-by-area-2017-2020.json");
+  const areasData = module.default;
+  // areasData = await fetchJSON(chrome.runtime.getURL('data/qualis-scores-by-area-2017-2020.json'));
+  
+  return areasData || [];
+}
+
+export async function getGroups() {
+  const module = await import("./groupTest.json");
+  const groupsData = module.default;
+  // groupsData = await fetchJSON(chrome.runtime.getURL('data/groupTest.json'));
+  
+  return groupsData || [];
 }
 

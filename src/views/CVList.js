@@ -17,17 +17,12 @@ import {
 // core components
 import CVItem from "components/CVItem";
 
-const CVList = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [viewType, setViewType] = useState("");
+const CVList = ({
+  authors
+}) => {
 
-  function handleViewTypeChange(value) {
-    // if ((value == "scoreTableView" || value == "scoreGraphicView") && Object.keys(areaData).length === 0) {
-    //   alert(`Para visualizar a pontuação Qualis, é necessário selecionar uma Área do Conhecimento.`)
-    //   return;
-    // }
-    setViewType(value);
-  }
+  console.log("Object.entries(authors)", authors)
+  
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -52,18 +47,13 @@ const CVList = () => {
       <Container className="mt--9" fluid>
         <Row>
           <div className="col">
-            <Card className="shadow">
+            <Card className="shadow mt-3">
               <CardHeader className="bg-transparent">
                 <h3 className="mb-0">Currículos Carregados</h3>
               </CardHeader>
               <CardBody>
                 <Row className="icon-examples">
-                  <CVItem authorName="Stephen Rehen" CVLink="https://react-icons.github.io/react-icons"/>
-                  <CVItem authorName="Stephen Rehen" CVLink="https://react-icons.github.io/react-icons"/>
-                  <CVItem authorName="Stephen Rehen" CVLink="https://react-icons.github.io/react-icons"/>
-                  <CVItem authorName="Stephen Rehen" CVLink="https://react-icons.github.io/react-icons"/>
-                  <CVItem authorName="Stephen Rehen" CVLink="https://react-icons.github.io/react-icons"/>
-                  <CVItem authorName="Stephen Rehen" CVLink="https://react-icons.github.io/react-icons"/>
+                  {Object.entries(authors).map(author => <CVItem authorName={author[1].name} CVLink={author[0]}/>)}
                 </Row>
               </CardBody>
             </Card>

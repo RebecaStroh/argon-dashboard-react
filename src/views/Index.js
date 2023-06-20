@@ -19,7 +19,10 @@ import {
 import DataTable from "components/Data/DataTable";
 import DataGraph from "components/Data/DataGraph";
 
-const Index = (props) => {
+const Index = ({
+  authors,
+  allQualisScores
+}) => {
   const [area, setArea] = useState("oi");
   const [viewType, setViewType] = useState("");
   const [showStatistics, setShowStatistics] = useState(false);
@@ -27,7 +30,10 @@ const Index = (props) => {
   const [endYear, setEndYear] = useState(2023);
   const [initYearInput, setInitYearInput] = useState(initYear);
   const [endYearInput, setEndYearInput] = useState(endYear);
+  const [authorText, setAuthorText] = useState("");
+  const [authorResults, setAuthorResults] = useState([]);
 
+  // TODO
   function handleViewTypeChange(value) {
     // if ((value == "scoreTableView" || value == "scoreGraphicView") && Object.keys(areaData).length === 0) {
     //   alert(`Para visualizar a pontuação Qualis, é necessário selecionar uma Área do Conhecimento.`)
@@ -35,6 +41,8 @@ const Index = (props) => {
     // }
     setViewType(value);
   }
+
+  // TODO
   function handleAreaChange(event) {
     // get previous area (if any)
     // var prevArea = area;
@@ -104,6 +112,14 @@ const Index = (props) => {
     }
   }
 
+  function handleAuthorTextChange(value) {
+    value = value.toLowerCase();
+
+    setAuthorResults(Object.entries(authors).filter(author => author[1].name.toLowerCase().includes(value)).slice(0, 5));
+
+    setAuthorText(value);
+  }
+
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -117,7 +133,7 @@ const Index = (props) => {
                     <i className="fas fa-user" />
                   </InputGroupText>
                 </InputGroupAddon>
-                <Input placeholder="Search" type="text" />
+                <Input placeholder="Search" type="text" value={authorText} onChange={e => handleAuthorTextChange(e.target.value)}/>
               </InputGroup>
             </FormGroup>
             <FormGroup className="w-100 mb-1">
@@ -139,9 +155,9 @@ const Index = (props) => {
                 >
                   <option value="" disabled={true} hidden={true}>Selecione uma Área do Conhecimento</option>
                   <option value="undefined">Sem Área do Conhecimento</option>
-                  {/* {allQualisScores.map(greatArea => <optgroup label={greatArea.label}>
-                    {Object.keys(greatArea.areas).map(area => <option value={area}>{greatArea.areas[area].label}</option>)}
-                    </optgroup>)} */}
+                  {allQualisScores.map(greatArea => <optgroup label={greatArea.label}  style={{color: "black"}}>
+                    {Object.keys(greatArea.areas).map(area => <option key={area} value={area}>{greatArea.areas[area].label}</option>)}
+                  </optgroup>)}
                 </Input>
               </InputGroup>
               {/* View type */}
