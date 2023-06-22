@@ -36,7 +36,6 @@ const Admin = (props) => {
     // Get Qualis Scores
     setAllQualisScores(await getAreasData());
     setGroups(await getGroups());
-    console.log("veja2:", groups)
 
     // Update area data (if previously saved in local store)
     // const data = await chrome.storage.local.get(['area_data']);

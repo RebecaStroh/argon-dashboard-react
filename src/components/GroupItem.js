@@ -13,7 +13,6 @@ const GroupItem = ({
   authors
 }) => {
 
-  console.log("my authors", groupName, authors)
   return (
     <Card className="shadow mt-3">
       <CardHeader className="bg-transparent" style={{ flexDirection: 'row', display: 'flex', justifyContent: "space-between" }}>
@@ -22,7 +21,7 @@ const GroupItem = ({
       </CardHeader>
       <CardBody>
         <Row className="icon-examples">
-          {authors.map(author => <CVItem authorName={author.name} CVLink={author.link}/>)}
+          {authors.map(author => <CVItem authorName={author.name} CVLink={author.link} key={author.link}/>)}
         </Row>
       </CardBody>
     </Card>

@@ -19,10 +19,7 @@ import CVItem from "components/CVItem";
 
 const CVList = ({
   authors
-}) => {
-
-  console.log("Object.entries(authors)", authors)
-  
+}) => {  
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -53,7 +50,7 @@ const CVList = ({
               </CardHeader>
               <CardBody>
                 <Row className="icon-examples">
-                  {Object.entries(authors).map(author => <CVItem authorName={author[1].name} CVLink={author[0]}/>)}
+                  {Object.entries(authors).map(author => <CVItem authorName={author[1].name} CVLink={author[0]} key={author[0]}/>)}
                 </Row>
               </CardBody>
             </Card>
