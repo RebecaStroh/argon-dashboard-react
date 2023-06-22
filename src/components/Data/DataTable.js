@@ -151,16 +151,18 @@ const DataTable = ({
           <Table className="align-items-center table-flush" responsive>
             <thead className="thead-light">
               <tr style={{
-                  display: 'table',
+                  // display: 'table',
                   width: '98.5%'
                 }}>
                 {header.map(item => <th scope="col">{item}</th>)}
               </tr>
             </thead>
-            <tbody style={{ display: 'block', maxHeight: '40vh', overflowY: 'auto' }}>
+            <tbody 
+              // style={{ display: 'block', maxHeight: '40vh', overflowY: 'auto' }}
+            >
               {years.map((year, index) => 
                 <tr style={{
-                  display: 'table',
+                  // display: 'table',
                   width: '100%'
                 }}>
                   <th scope="row">{year}</th>
@@ -172,32 +174,32 @@ const DataTable = ({
             </tbody>
             <tfoot>
               <tr style={{
-                  display: 'table',
+                  // display: 'table',
                   width: '98.5%'
                 }}>
                 {footer.map(item => <th scope="col">{item}</th>)}
               </tr>
               {showStatistics && (<>
                 <tr style={{
-                    display: 'table',
+                    // display: 'table',
                     width: '98.5%'
                   }}>
                   {mean.map(item => <th scope="col">{item}</th>)}
                 </tr>
                 <tr style={{
-                    display: 'table',
+                    // display: 'table',
                     width: '98.5%'
                   }}>
                   {mediana.map(item => <th scope="col">{item}</th>)}
                 </tr>
                 <tr style={{
-                    display: 'table',
+                    // display: 'table',
                     width: '98.5%'
                   }}>
                   {tendencia.map(item => <th scope="col">{item}</th>)}
                 </tr>
                 <tr style={{
-                    display: 'table',
+                    // display: 'table',
                     width: '98.5%'
                   }}>
                   {bestYear.map(item => <th scope="col">{item}</th>)}
