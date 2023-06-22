@@ -369,9 +369,9 @@ const Index = ({
       {/* Page content */}
       <Container className="mt--5" fluid>
         {viewType === "qualisTableView" && <DataTable tableName="Tabela de classificação Qualis" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}
-        {viewType === "qualisGraphicView" && <DataGraph graphName="Gráfico de classificação Qualis"/>}
+        {viewType === "qualisGraphicView" && <DataGraph graphName="Gráfico de classificação Qualis" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}
         {viewType === "scoreTableView" && <DataTable tableName="Tabela de pontuação Qualis" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics} score/>}
-        {viewType === "scoreGraphicView" && <DataGraph graphName="Gráfico de pontuação Qualis"/>}
+        {viewType === "scoreGraphicView" && <DataGraph graphName="Gráfico de pontuação Qualis" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics} score/>}
         {viewType === "top5View" && <DataTable tableName="5 melhores publicações" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}
         {viewType === "top10View" && <DataTable tableName="10 melhores publicações" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}
       </Container>

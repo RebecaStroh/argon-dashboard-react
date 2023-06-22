@@ -229,3 +229,67 @@ export function getQualisStats(pubInfo, metric = 'qualis', scores = {}) {
 export function getQualisScore(qualisCategory, count, areaScores) {
   return areaScores[qualisCategory] * count;
 }
+
+
+/**
+ * Graph functions
+ */
+
+export function getGraphicInfo(datasets, years, totalStats, showStatistics, end, init) {  
+  // const lineAnnotations = getStatisticsAnnotations(totalStats, showStatistics, end, init);
+  const options = {
+    // plugins: {
+    //   annotation: {
+    //     // annotations: lineAnnotations
+    //   },
+    //   legend: {
+    //     position: 'top',
+    //   },
+    // },
+    // responsive: true,
+    scales: {
+      x: {
+        stacked: true,
+        grid: {
+          display: false,
+        },
+      },
+      y: {
+        stacked: true,
+        grid: {
+          display: false,
+        },
+      },
+    },
+    borderWidth: 1,
+    minBarThickness: 5,
+    maxBarThickness: 12,
+  };
+  
+  const data = {
+    labels: years,
+    datasets
+  };
+
+  return { options, data }
+}
+
+/**
+ * Data stats util functions
+ */
+
+// update total data stats
+export function updateTotalStats(totalStats, yearCounts, year) {
+  for (const key of Object.keys(yearCounts)) {
+    // update total stats lists
+    totalStats[key].countList.push(yearCounts[key]);
+    totalStats[key].yearList.push(year);
+
+    // update total stats best
+    if (yearCounts[key] > totalStats[key].best.count) {
+      totalStats[key].best.count = yearCounts[key];
+      totalStats[key].best.year = year;
+    }
+  }
+  return totalStats;
+}
