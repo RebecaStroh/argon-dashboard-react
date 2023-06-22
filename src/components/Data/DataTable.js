@@ -15,7 +15,8 @@ const DataTable = ({
   init,
   end,
   stats,
-  showStatistics
+  showStatistics,
+  score
 }) => {
   const qualisScores = {
     A1: 100,
@@ -84,7 +85,7 @@ const DataTable = ({
       const keyChar = key.slice(0, 1);
 
       // value
-      const currentValue = stats[key][currYear];
+      const currentValue = score ? qualisScores[key] : stats[key][currYear];
 
       // Qualis columns
       qualis[key][currYear] = currentValue;
@@ -118,6 +119,9 @@ const DataTable = ({
   const header = ["Ano"].concat(Object.keys(qualis))
     .concat(Object.keys(totals).map(item => item === "all" ? "Total" : "Tot " + item))
     .concat(Object.keys(percentages).map(item => "% " + item));
+  const headerLegend = [""].concat(Object.keys(qualis).map(item => qualisScores[item]))
+    .concat(Object.keys(totals).map(item => ""))
+    .concat(Object.keys(percentages).map(item => ""));
 
   // Create footer from data arrays
   const footer = ["Total"].concat(Object.values(totalStats).map(number => roundNumber(number)));
@@ -135,7 +139,6 @@ const DataTable = ({
   const bestYear = ["Melhor ano"].concat(Object.keys(qualis).map(item => ""))
     .concat(Object.keys(totals).map(item => 0))
     .concat(Object.keys(percentages).map(item => 0));
-
 
   return (
     <Row>
@@ -156,6 +159,14 @@ const DataTable = ({
                 }}>
                 {header.map(item => <th scope="col">{item}</th>)}
               </tr>
+              {score &&
+                <tr style={{
+                  // display: 'table',
+                  width: '98.5%'
+                }}>
+                {headerLegend.map(item => <th scope="col">{item}</th>)}
+                </tr>
+              }
             </thead>
             <tbody 
               // style={{ display: 'block', maxHeight: '40vh', overflowY: 'auto' }}
