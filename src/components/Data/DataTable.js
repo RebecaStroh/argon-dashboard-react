@@ -30,8 +30,11 @@ const DataTable = ({
     N: 0,
   };
 
+  init = Number(init);
+  end = Number(end);
+
   // Init data arrays
-  const years = Array.from({ length: end - init + 1 }, (_, index) => init + index).reverse();
+  const years = stats.year;
   const qualis = {
     A1: Array(years.length).fill(0),
     A2: Array(years.length).fill(0),
@@ -53,17 +56,73 @@ const DataTable = ({
     A: Array(years.length).fill(0),
     B: Array(years.length).fill(0),
   };
+  const totalStats = {
+    A1: 0,
+    A2: 0,
+    A3: 0,
+    A4: 0,
+    B1: 0,
+    B2: 0,
+    B3: 0,
+    B4: 0,
+    C: 0,
+    N: 0,
+    '#A': 0,
+    '#B': 0,
+    '#all': 0,
+    '%A': 0,
+    '%B': 0,
+  }
 
+  // Get row datas
+  for (let currYear = 0; currYear < years.length; currYear++) {
+    // se o ano do stats nao estiver no meio do intervalo, pula
+    if (stats.year[currYear] < init && stats.year[currYear] > end) continue;
+    
+    // create cells with data cols
+    for (const key of Object.keys(qualis)) {
+      const keyChar = key.slice(0, 1);
+
+      // value
+      const currentValue = stats[key][currYear];
+
+      // Qualis columns
+      qualis[key][currYear] = currentValue;
+
+      // Total columns
+      totals.all[currYear] += currentValue;
+      if (['A', 'B'].includes(keyChar)) {
+        totals[keyChar][currYear] += currentValue;
+        percentages[keyChar][currYear] += currentValue;
+      }
+
+      // Total row
+      totalStats[key] += currentValue;
+      totalStats['#all'] += currentValue;
+      if (['A', 'B'].includes(keyChar)) {
+        totalStats['#'+keyChar] += currentValue;
+        totalStats['%'+keyChar] += currentValue;
+      }
+    }
+
+    percentages.A[currYear] = totals.all[currYear]===0 ? 0 : (percentages.A[currYear]/totals.all[currYear]*100);
+    percentages.B[currYear] = totals.all[currYear]===0 ? 0 : (percentages.B[currYear]/totals.all[currYear]*100);
+  }
+
+  // Colocar na utils
+  const roundNumber = (number) => {
+    return number.toString().indexOf('.') !== -1 ? number.toFixed(1) : number;
+  }
+  
   // Create header from data arrays
   const header = ["Ano"].concat(Object.keys(qualis))
-    .concat(Object.keys(totals).map(item => item == "all" ? "Total" : "Tot " + item))
+    .concat(Object.keys(totals).map(item => item === "all" ? "Total" : "Tot " + item))
     .concat(Object.keys(percentages).map(item => "% " + item));
 
   // Create footer from data arrays
-  const footer = ["Total"].concat(Object.keys(qualis).map(item => 0))
-    .concat(Object.keys(totals).map(item => 0))
-    .concat(Object.keys(percentages).map(item => 0));
+  const footer = ["Total"].concat(Object.values(totalStats).map(number => roundNumber(number)));
 
+  // Get statistics
   const mean = ["Média"].concat(Object.keys(qualis).map(item => ""))
     .concat(Object.keys(totals).map(item => 0))
     .concat(Object.keys(percentages).map(item => 0));
@@ -76,6 +135,7 @@ const DataTable = ({
   const bestYear = ["Melhor ano"].concat(Object.keys(qualis).map(item => ""))
     .concat(Object.keys(totals).map(item => 0))
     .concat(Object.keys(percentages).map(item => 0));
+
 
   return (
     <Row>
@@ -104,11 +164,11 @@ const DataTable = ({
                   width: '100%'
                 }}>
                   <th scope="row">{year}</th>
-                  {Object.values(qualis).map(item => <td>{item[index]}</td>)}
-                  {Object.values(totals).map(item => <td>{item[index]}</td>)}
-                  {Object.values(percentages).map(item => <td>{item[index]}</td>)}
+                  {Object.values(qualis).map(item => <td>{roundNumber(item[index])}</td>)}
+                  {Object.values(totals).map(item => <td>{roundNumber(item[index])}</td>)}
+                  {Object.values(percentages).map(item => <td>{roundNumber(item[index])}</td>)}
                 </tr>
-              )}
+              ).reverse()}
             </tbody>
             <tfoot>
               <tr style={{

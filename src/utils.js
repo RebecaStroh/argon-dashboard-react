@@ -130,3 +130,102 @@ export async function getGroups() {
   return groupsData || [];
 }
 
+
+
+export function addMissingYearsToAuthorStats(stats, pubInfo) {
+  const newStats = {};
+  // reset new stats count lists
+  for (const key of Object.keys(stats)) {
+    newStats[key] = [];
+  }
+
+  let currYear = new Date().getFullYear() + 1;
+  for (const pubInfoYear of Object.keys(pubInfo).reverse()) {
+    // add empty results for missing years (if any)
+    for (let year = currYear - 1; year > pubInfoYear; year--) {
+      // add empty counts to missing year stats
+      for (const key of Object.keys(newStats)) {
+        if (key === 'year') {
+          newStats[key].push(year);
+        } else {
+          newStats[key].push(0);
+        }
+      }
+    }
+
+    // copy current year counts to new stats
+    for (const key of Object.keys(newStats)) {
+      newStats[key].push(stats[key][pubInfoYear]);
+    }
+
+    // update current year
+    currYear = pubInfoYear;
+  }
+
+  return {
+    stats: stats,
+    minYear: NaN,
+    maxYear: NaN,
+    totalPubs: NaN,
+    pubInfo: pubInfo,
+  };
+}
+export function getQualisStats(pubInfo, metric = 'qualis', scores = {}) {
+  const qualisCats = ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4', 'C', 'N'];
+  const qualisCols = ['year'].concat(qualisCats);
+  
+  // reset Qualis stats
+  const qualisStats = {};
+  for (const col of qualisCols) {
+    qualisStats[col] = [];
+  }
+  // reset year counts
+  const yearCounts = {};
+  for (const cat of qualisCats) {
+    yearCounts[cat] = 0;
+  }
+  var currYear = 0;
+  for (const pubInfoElem of Object.keys(pubInfo)) {
+    if (currYear !== pubInfoElem) {
+      if (currYear > 0) {
+        // add current year counts to Qualis results
+        for (const key of Object.keys(yearCounts)) {
+          qualisStats[key].push(yearCounts[key]);
+        }
+        // reset year counts
+        for (const key of Object.keys(yearCounts)) {
+          yearCounts[key] = 0;
+        }
+      }
+      // update current year
+      currYear = pubInfoElem;
+      // add current year to Qualis counts
+      qualisStats.year.push(currYear);
+    }
+    // increment year counts for each publication based on given metric
+    for (const pubItem of pubInfo[pubInfoElem]) {
+      if (metric === 'qualis') {
+        yearCounts[pubItem.qualis] += 1;
+      } else if (metric === 'score' && Object.keys(scores).length > 0) {
+        yearCounts[pubItem.qualis] += parseFloat(
+          getQualisScore(pubItem.qualis, 1, scores)
+        );
+      } else if (metric === 'jcr') {
+        yearCounts[pubItem.qualis] += parseFloat(pubItem.jcr);
+      }
+    }
+  }
+  if (qualisStats.year.length > qualisStats.A1.length) {
+    // add year counts to Qualis stats
+    for (const key of Object.keys(yearCounts)) {
+      qualisStats[key].push(yearCounts[key]);
+    }
+  }
+
+  return qualisStats;
+}
+
+// get Qualis score for given category
+export function getQualisScore(qualisCategory, count, areaScores) {
+  return areaScores[qualisCategory] * count;
+}

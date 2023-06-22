@@ -13,25 +13,34 @@ import {
   Label,
   Container,
 } from "reactstrap";
-
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 // core components
 
 import DataTable from "components/Data/DataTable";
 import DataGraph from "components/Data/DataGraph";
+import { addMissingYearsToAuthorStats, getQualisStats } from '../utils';
+
 
 const Index = ({
   authors,
+  groups,
+  authorsNameLink,
   allQualisScores
 }) => {
   const [area, setArea] = useState("oi");
   const [viewType, setViewType] = useState("");
   const [showStatistics, setShowStatistics] = useState(false);
-  const [initYear, setInitYear] = useState(1993);
-  const [endYear, setEndYear] = useState(2023);
-  const [initYearInput, setInitYearInput] = useState(initYear);
-  const [endYearInput, setEndYearInput] = useState(endYear);
-  const [authorText, setAuthorText] = useState("");
-  const [authorResults, setAuthorResults] = useState([]);
+
+  const [initYear, setInitYear] = useState(0);
+  const [endYear, setEndYear] = useState(0);
+  const [initYearInput, setInitYearInput] = useState(0);
+  const [endYearInput, setEndYearInput] = useState(0);
+
+  const [stats, setStats] = useState([]);
+
+
+  const cvOptions = authorsNameLink.concat(Object.values(groups));
 
   // TODO
   function handleViewTypeChange(value) {
@@ -112,14 +121,6 @@ const Index = ({
     }
   }
 
-  function handleAuthorTextChange(value) {
-    value = value.toLowerCase();
-
-    setAuthorResults(Object.entries(authors).filter(author => author[1].name.toLowerCase().includes(value)).slice(0, 5));
-
-    setAuthorText(value);
-  }
-
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -127,13 +128,105 @@ const Index = ({
           <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
             {/* Select authors / groups */}
             <FormGroup className="w-100 mb-1">
-              <InputGroup className="input-group-alternative">
+              <InputGroup className="input-group-alternative" style={{width:"500px"}}>
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
                     <i className="fas fa-user" />
                   </InputGroupText>
                 </InputGroupAddon>
-                <Input placeholder="Search" type="text" value={authorText} onChange={e => handleAuthorTextChange(e.target.value)}/>
+                <Autocomplete
+                  onChange={(event, values) => {
+                    // get authors links
+                    values = values.map(value => value.link ? value.link : value.authors)
+                      .flat().filter((value, index, self) => self.indexOf(value) === index);
+
+                    if (values.length === 0) return;
+
+                    // get all cvs
+                    const cvs = values.map(link => authors[link]);
+                    const pubInfos = cvs.map(cv => cv.pubInfo).flat();
+
+                    // merge pubInfos
+                    const mergedPubInfos = {};
+
+                    for (const pubInfo of pubInfos) {
+                      for (const year in pubInfo) {
+                        if (mergedPubInfos[year]) {
+                          mergedPubInfos[year] = mergedPubInfos[year].concat(pubInfo[year]);
+                        } else {
+                          mergedPubInfos[year] = pubInfo[year];
+                        }
+                      }
+                    }
+
+                    // GET YEARS
+                    const years = Object.keys(mergedPubInfos);
+                    const scores = {
+                      "A1": 100,
+                      "A2": 85,
+                      "A3": 70,
+                      "A4": 55,
+                      "B1": 40,
+                      "B2": 30,
+                      "B3": 20,
+                      "B4": 10,
+                      "C": 0
+                    }
+
+                    // GET STATS
+                    let authorStats = {
+                      stats: [],
+                      minYear: years[0],
+                      maxYear: years[years.length-1],
+                      totalPubs: NaN,
+                      pubInfo: [],
+                    };
+                    // add missing years (if any) to author stats
+                    authorStats = addMissingYearsToAuthorStats(
+                      getQualisStats(mergedPubInfos, 'qualis', scores),
+                      mergedPubInfos
+                    );
+
+                    // get total journal publications
+                    var totalPubs = 0;
+                    for (const key of Object.keys(authorStats.stats)) {
+                      if (key !== 'year' && key !== 'jcr') {
+                        totalPubs += authorStats.stats[key].reduce(
+                          (partialSum, a) => partialSum + a,
+                          0
+                        );
+                      }
+                    }
+                    authorStats.totalPubs = totalPubs;
+
+                    // console.log("ANOS: ", years[0], years[years.length-1])
+                    // console.log("authorStats: ", authorStats)
+                    // console.log("mergedPubInfos: ", mergedPubInfos)
+
+                    setStats(authorStats.stats);
+                    setInitYearInput(years[0]);
+                    setEndYearInput(years[years.length-1]);
+                    setInitYear(years[0]);
+                    setEndYear(years[years.length-1]);
+                  }}
+                  multiple
+                  options={cvOptions}
+                  getOptionLabel={(option) => option.name}
+                  defaultValue={[]}
+                  filterSelectedOptions
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      placeholder="Selecione um CV"
+                    />
+                  )}
+                  sx={{
+                    width: '90%',
+                    '& fieldset': {
+                      border: "none",
+                    },
+                  }}
+                />
               </InputGroup>
             </FormGroup>
             <FormGroup className="w-100 mb-1">
@@ -274,13 +367,13 @@ const Index = ({
       <div className="header bg-gray pb-8 pt-5 pt-md-8">
       </div>
       {/* Page content */}
-      <Container className="mt--6" fluid>
-        {viewType === "qualisTableView" && <DataTable tableName="Tabela de classificação Qualis" init={initYearInput} end={endYearInput} stats={"stats"} showStatistics={showStatistics}/>}
+      <Container className="mt--5" fluid>
+        {viewType === "qualisTableView" && <DataTable tableName="Tabela de classificação Qualis" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}
         {viewType === "qualisGraphicView" && <DataGraph graphName="Gráfico de classificação Qualis"/>}
-        {viewType === "scoreTableView" && <DataTable tableName="Tabela de pontuação Qualis" init={initYearInput} end={endYearInput} stats={"stats"} showStatistics={showStatistics}/>}
+        {viewType === "scoreTableView" && <DataTable tableName="Tabela de pontuação Qualis" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}
         {viewType === "scoreGraphicView" && <DataGraph graphName="Gráfico de pontuação Qualis"/>}
-        {viewType === "top5View" && <DataTable tableName="5 melhores publicações" init={initYearInput} end={endYearInput} stats={"stats"} showStatistics={showStatistics}/>}
-        {viewType === "top10View" && <DataTable tableName="10 melhores publicações" init={initYearInput} end={endYearInput} stats={"stats"} showStatistics={showStatistics}/>}
+        {viewType === "top5View" && <DataTable tableName="5 melhores publicações" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}
+        {viewType === "top10View" && <DataTable tableName="10 melhores publicações" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}
       </Container>
     </>
   );

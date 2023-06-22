@@ -56,7 +56,7 @@ const Admin = (props) => {
   const routes = [
     {
       path: "/index",
-      component: <Index authors={authors} allQualisScores={allQualisScores}/>,
+      component: <Index authors={authors} allQualisScores={allQualisScores} groups={groups} authorsNameLink={authorsNameLink}/>,
       layout: "/admin",
     },
     {
