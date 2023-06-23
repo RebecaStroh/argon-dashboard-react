@@ -158,14 +158,14 @@ const DataTable = ({
                   // display: 'table',
                   width: '98.5%'
                 }}>
-                {header.map(item => <th scope="col">{item}</th>)}
+                {header.map(item => <th scope="col" style={typeof areaData !== 'undefined' ? { borderBottom: 'none'} : {}}>{item}</th>)}
               </tr>
               {typeof areaData !== 'undefined' &&
                 <tr style={{
                   // display: 'table',
                   width: '98.5%'
                 }}>
-                {Array.isArray(headerLegend) && headerLegend.map(item => <th scope="col">{item}</th>)}
+                {Array.isArray(headerLegend) && headerLegend.map(item => <th scope="col" style={{borderTop: 'none'}}>{item}</th>)}
                 </tr>
               }
             </thead>
@@ -184,37 +184,37 @@ const DataTable = ({
                 </tr>
               ).reverse()}
             </tbody>
-            <tfoot>
+            <tfoot className="thead-light">
               <tr style={{
                   // display: 'table',
-                  width: '98.5%'
+                  width: '98.5%'                  
                 }}>
-                {footer.map(item => <th scope="col">{item}</th>)}
+                {footer.map(item => <th scope="col" style={{ borderBottom: 'none' }}>{item}</th>)}
               </tr>
               {showStatistics && (<>
                 <tr style={{
                     // display: 'table',
                     width: '98.5%'
                   }}>
-                  {mean.map(item => <th scope="col">{item}</th>)}
+                  {mean.map(item => <th scope="col" style={{ borderTop: 'none', borderBottom: 'none' }}>{item}</th>)}
                 </tr>
                 <tr style={{
                     // display: 'table',
                     width: '98.5%'
                   }}>
-                  {mediana.map(item => <th scope="col">{item}</th>)}
+                  {mediana.map(item => <th scope="col" style={{ borderTop: 'none', borderBottom: 'none' }}>{item}</th>)}
                 </tr>
                 <tr style={{
                     // display: 'table',
                     width: '98.5%'
                   }}>
-                  {tendencia.map(item => <th scope="col">{item}</th>)}
+                  {tendencia.map(item => <th scope="col" style={{ borderTop: 'none', borderBottom: 'none' }}>{item}</th>)}
                 </tr>
                 <tr style={{
                     // display: 'table',
                     width: '98.5%'
                   }}>
-                  {bestYear.map(item => <th scope="col">{item}</th>)}
+                  {bestYear.map(item => <th scope="col" style={{ borderTop: 'none', borderBottom: 'none' }}>{item}</th>)}
                 </tr>
               </>)}
             </tfoot>

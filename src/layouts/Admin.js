@@ -1,10 +1,6 @@
-/*global chrome*/
 import React, { useEffect, useState } from "react";
 import { useLocation, Route, Routes, Navigate } from "react-router-dom";
-// reactstrap components
-import { Container } from "reactstrap";
 // core components
-import AdminFooter from "components/AdminFooter.js";
 import Sidebar from "components/Sidebar.js";
 
 import { getAreasData, getLattesData, getGroups, getArea } from '../utils';
@@ -45,7 +41,7 @@ const Admin = (props) => {
 
     // Get Authors
     getLattesData().then(async (authorList) => {
-      if (authors.length == 0 && authorList.length != 0) {
+      if (authors.length === 0 && authorList.length !== 0) {
         setAuthors(authorList);
         setAuthorsNameLink(Object.entries(authorList).map(author =>( {link: author[0],name: author[1].name})));
       }
@@ -112,9 +108,6 @@ const Admin = (props) => {
           )}
           <Route path="*" element={<Navigate to="/admin/index" replace />} />
         </Routes>
-        <Container fluid>
-          <AdminFooter />
-        </Container>
       </div>
     </>
   );

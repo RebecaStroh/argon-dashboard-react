@@ -9,34 +9,55 @@ import {
   Input,
   InputGroup,
   Navbar,
+  Button,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
 } from "reactstrap";
 // core components
 import GroupItem from "components/GroupItem";
+import { useState } from "react";
 
 const GroupList = ({
   authors,
   groups
 }) => {
 
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
         <Container fluid>
           <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex">
             <FormGroup className="w-100 mb-1">
-              <InputGroup className="input-group-alternative">
+              <InputGroup className="input-group-alternative" style={{ marginRight: "15px", border: 'none', backgroundColor: 'white' }}>
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="fas fa-search" />
+                    <i className="fas fa-search" style={{ color: "#415e98" }}/>
                   </InputGroupText>
                 </InputGroupAddon>
-                <Input placeholder="Search" type="text" />
+                <Input placeholder="Search" type="text"  style={{ color: "#415e98" }}/>
               </InputGroup>
             </FormGroup>
           </Form>
+          <Button
+            color="white"
+            onClick={toggle}
+            size="sm"
+            style={{
+              width: '160px',
+              alignSelf: 'flex-start',
+              color: '#415e98'
+            }}
+          >
+            Criar novo grupo
+          </Button>
         </Container>
       </Navbar>
-      <div className="header bg-gray pb-8 pt-5 pt-md-8">
+      <div className="header pb-8 pt-5 pt-md-8">
       </div>
       {/* Page content */}
       <Container className="mt--9" fluid>
@@ -52,6 +73,24 @@ const GroupList = ({
           </div>
         </Row>
       </Container>
+
+      {/* New group Modal */}
+      <Modal isOpen={modal}>
+        <ModalHeader>Adicionar um novo Grupo</ModalHeader>
+        <ModalBody>
+          <Input placeholder="Nome do grupo" type="text" />
+          <Input multiple placeholder="Selecione um CV" type="text" />
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggle}>
+            Salvar
+          </Button>{' '}
+          <Button color="secondary" onClick={toggle}>
+            Cancelar
+          </Button>
+        </ModalFooter>
+      </Modal>
+
     </>
   );
 };

@@ -30,7 +30,11 @@ const GroupItem = ({
     <Card className="shadow mt-3">
       <CardHeader className="bg-transparent" style={{ flexDirection: 'row', display: 'flex', justifyContent: "space-between" }}>
         <h3 className="mb-0">{groupName}</h3>
-        <i className="fas fa-plus" style={{cursor: "pointer"}} onClick={toggle}/>
+        <div>
+          <i className="fas fa-file-export mr-2" onClick={() => { console.log("oi") }} style={{fontSize: "14px", cursor: "pointer"}} title="Exportar dados dos CVs do grupo"/>
+          <i className="fas fa-trash-can mr-2" onClick={() => { console.log("oi") }} style={{fontSize: "14px", cursor: "pointer"}} title="Deletar grupo"/>
+          <i className="fas fa-plus" style={{cursor: "pointer"}} onClick={toggle} title="Adicionar um CV ao grupo"/>
+        </div>
       </CardHeader>
       <CardBody>
         <Row className="icon-examples">
@@ -39,10 +43,9 @@ const GroupItem = ({
       </CardBody>
       {/* Modal to add authors */}
       <Modal isOpen={modal}>
-        <ModalHeader>Adicionar um novo CV ao grupo</ModalHeader>
+        <ModalHeader>Adicionar um novo CV ao {groupName}</ModalHeader>
         <ModalBody>
-          <Input placeholder="Digite um nome" type="text" />
-          
+          <Input placeholder="Selecione um CV" type="text" />
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={toggle}>

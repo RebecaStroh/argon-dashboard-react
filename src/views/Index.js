@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 // reactstrap components
 import {
-  Button,
   Form,
   FormGroup,
   InputGroupAddon,
@@ -206,13 +205,13 @@ const Index = ({
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
         <Container fluid>
-          <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+          <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto w-100">
             {/* Select authors / groups */}
-            <FormGroup className="w-100 mb-1">
-              <InputGroup className="input-group-alternative" style={{width:"500px"}}>
+            <FormGroup className="w-100 mb-3" style={{ justifyContent: 'space-between' }}>
+              <InputGroup className="input-group-alternative" style={{ width:"500px", border: 'none', backgroundColor: 'white' }}>
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="fas fa-user" />
+                    <i className="fas fa-user" style={{ color: '#415e98' }}/>
                   </InputGroupText>
                 </InputGroupAddon>
                 <Autocomplete
@@ -231,31 +230,35 @@ const Index = ({
                   sx={{
                     width: '90%',
                     '& .MuiButtonBase-root': {
-                      color: 'rgba(255, 255, 255, 0.6)',
+                      color: '#415e98',
                     },
                     '& .MuiInputBase-input': {
-                      color: 'rgba(255, 255, 255, 0.6)',
+                      color: '#415e98',
                     },
                     '& fieldset': {
                       border: "none",
                     },
                     '& .MuiInputBase-root > .MuiButtonBase-root': {
-                      border: '1px rgba(255, 255, 255, 0.6) solid',
+                      border: '1px #415e98 solid',
                       backgroundColor: 'transparent',
                       '& .MuiSvgIcon-root': {
+                        color: "#415e98"
                       }
-                    },
+                    }
                   }}
                 />
               </InputGroup>
+              {showAll && <Label style={{ marginLeft: "10px", marginRight: "10px", color: '#415e98' }}>
+                X artigos em periódicos entre {initYear} e {endYear}
+              </Label>}
             </FormGroup>
             {showAll && <>
-              <FormGroup className="w-100 mb-1">
+              <FormGroup className="w-100">
                 {/* área do conhecimento */}
-                <InputGroup className="input-group-alternative">
+                <InputGroup className="input-group-alternative" style={{ marginRight: "15px", border: 'none', backgroundColor: 'white' }}>
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
-                      <i className="fas fa-graduation-cap" />
+                      <i className="fas fa-graduation-cap" style={{ color: '#415e98' }}/>
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
@@ -263,7 +266,7 @@ const Index = ({
                     name="select"
                     type="select"
                     className="input-group-alternative"
-                    style={{marginRight: "15px"}}
+                    style={{ marginRight: "15px", color:'#415e98' }}
                     value={area} onChange={e => handleAreaChange(e)}
                     defaultValue=""
                   >
@@ -275,10 +278,10 @@ const Index = ({
                   </Input>
                 </InputGroup>
                 {/* View type */}
-                <InputGroup className="input-group-alternative">
+                <InputGroup className="input-group-alternative" style={{ marginRight: "15px", border: 'none', backgroundColor: 'white' }}>
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
-                      <i className="fas fa-chart-bar" />
+                      <i className="fas fa-chart-bar" style={{ color: '#415e98' }}/>
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
@@ -286,7 +289,7 @@ const Index = ({
                     name="select"
                     type="select"
                     className="input-group-alternative"
-                    style={{marginRight: "15px"}}
+                    style={{ marginRight: "15px", color:'#415e98' }}
                     value={viewType} onChange={e => handleViewTypeChange(e.target.value)}
                     defaultValue=""
                   >
@@ -305,10 +308,8 @@ const Index = ({
                     </optgroup>
                   </Input>
                 </InputGroup>
-              </FormGroup>
-              <FormGroup className="w-100">
                 {/* Init year */}
-                <InputGroup className="input-group-alternative" style={{width:"100px"}}>
+                <InputGroup className="input-group-alternative" style={{ width:"100px", border: 'none', backgroundColor: 'white' }}>
                   <Input
                     id="exampleEmail"
                     name="initYear"
@@ -318,14 +319,16 @@ const Index = ({
                     value={initYearInput}
                     required="required"
                     onChange={e => setInitYearInput(e.target.value)}
+                    style={{ color:'#415e98' }}
                   />
                 </InputGroup>
-                <Label style={{marginLeft: "10px", marginRight: "10px", color: 'white'}}>
+                <Label style={{ marginLeft: "10px", marginRight: "10px", color: '#415e98' }}>
                   a
                 </Label>
                 {/* End year */}
-                <InputGroup className="input-group-alternative" style={{width:"100px"}}>
+                <InputGroup className="input-group-alternative" style={{ width:"100px", border: 'none', backgroundColor: 'white', marginRight: "10px" }}>
                   <Input
+                    style={{ color:'#415e98' }}
                     id="exampleEmail"
                     name="endYear"
                     placeholder="Ano de fim"
@@ -337,10 +340,10 @@ const Index = ({
                   />
                 </InputGroup>
                 {/* Period */}
-                <InputGroup className="input-group-alternative">
+                <InputGroup className="input-group-alternative" style={{ border: 'none', backgroundColor: 'white' }}>
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
-                      <i className="fas fa-calendar-check" />
+                      <i className="fas fa-calendar-check" style={{ color:'#415e98' }} />
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
@@ -348,7 +351,7 @@ const Index = ({
                     name="select"
                     type="select"
                     className="input-group-alternative"
-                    style={{marginRight: "15px"}}
+                    style={{ marginRight: "15px", color:'#415e98' }}
                     onChange={e => handleSelectedPeriod(e.target.value)}
                     defaultValue="all"
                   >
@@ -358,7 +361,7 @@ const Index = ({
                   </Input>
                 </InputGroup>
                 {/* Statistics */}
-                <InputGroupText style={{backgroundColor: "transparent", border: "none"}}>
+                <InputGroupText style={{ backgroundColor: "transparent", border: "none" }}>
                   <Input
                     addon
                     aria-label="Checkbox for following text input"
@@ -366,36 +369,19 @@ const Index = ({
                     value={showStatistics}
                     onChange={(e) =>setShowStatistics(!showStatistics)}
                   />
-                  <Label style={{marginLeft: "10px"}}>
+                  <Label style={{ marginLeft: "10px", color:'#415e98' }}>
                     Exibir estatísticas
                   </Label>
                 </InputGroupText>
               </FormGroup>
             </>}
           </Form>
-          
-          <div className="col text-right">
-            {showAll && <>
-                <Button
-                  color="primary"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  size="sm"
-                  style={{
-                    width: '160px',
-                    alignSelf: 'flex-start'
-                  }}
-                >
-                  Exportar dados
-                </Button>
-            </>}
-          </div>
         </Container>
       </Navbar>
-      <div className="header bg-gray pb-8 pt-5 pt-md-8">
+      <div className="header pb-8 pt-5 pt-md-8">
       </div>
       {/* Page content */}
-      <Container className="mt--4" fluid>
+      <Container className="mt--7 mb-5" fluid>
         {showAll && <>
           {viewType === "qualisTableView" && <DataTable tableName="Tabela de classificação Qualis" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}
           {viewType === "qualisGraphicView" && <DataGraph graphName="Gráfico de classificação Qualis" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}

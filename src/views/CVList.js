@@ -26,19 +26,19 @@ const CVList = ({
         <Container fluid>
           <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex">
             <FormGroup className="w-100 mb-1">
-              <InputGroup className="input-group-alternative">
+              <InputGroup className="input-group-alternative" style={{ marginRight: "15px", border: 'none', backgroundColor: 'white' }}>
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="fas fa-search" />
+                    <i className="fas fa-search" style={{ color: "#415e98" }}/>
                   </InputGroupText>
                 </InputGroupAddon>
-                <Input placeholder="Search" type="text" />
+                <Input placeholder="Search" type="text" style={{ color: "#415e98" }}/>
               </InputGroup>
             </FormGroup>
           </Form>
         </Container>
       </Navbar>
-      <div className="header bg-gray pb-8 pt-5 pt-md-8">
+      <div className="header pb-8 pt-5 pt-md-8">
       </div>
       {/* Page content */}
       <Container className="mt--9" fluid>

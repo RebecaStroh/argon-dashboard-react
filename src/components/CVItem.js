@@ -45,8 +45,9 @@ const CVItem = ({
       <div className="btn-icon-clipboard" style={{ flexDirection: 'row', display: 'flex', justifyContent: 'space-between' }}>
         <span>{authorName}</span>
         <div className="actions">
-          <i className="fas fa-external-link-alt mr-1" onClick={() => { window.open(CVLink, '_blank') }} style={{fontSize: "18px"}}/>
-          <i className="fas fa-trash-can" onClick={handleTrashButton} style={{fontSize: "18px"}}/>
+          <i className="fas fa-external-link-alt mr-1" onClick={() => { window.open(CVLink, '_blank') }} style={{fontSize: "14px"}} title="Ir para link externo"/>
+          {!group && <i className="fas fa-file-export mr-1" onClick={() => { window.open(CVLink, '_blank') }} style={{fontSize: "14px"}} title="Exportar curriculo"/>}
+          <i className={group ? "fas fa-close" : "fas fa-trash-can"} onClick={handleTrashButton} style={{fontSize: "14px"}} title={group? "Remover curriculo do grupo" : "Remover curriculo do banco"}/>
         </div>
       </div>
     </Col>
