@@ -34,7 +34,7 @@ const GroupItem = ({
       </CardHeader>
       <CardBody>
         <Row className="icon-examples">
-          {authors.map(author => <CVItem authorName={author.name} CVLink={author.link} key={author.link}/>)}
+          {authors.map(author => <CVItem authorName={author.name} CVLink={author.link} key={author.link} group={groupName}/>)}
         </Row>
       </CardBody>
       {/* Modal to add authors */}
