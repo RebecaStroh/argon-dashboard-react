@@ -7,7 +7,7 @@ import { Container } from "reactstrap";
 import AdminFooter from "components/AdminFooter.js";
 import Sidebar from "components/Sidebar.js";
 
-import { getAreasData, getLattesData, getGroups } from '../utils';
+import { getAreasData, getLattesData, getGroups, getArea } from '../utils';
 import Index from "views/Index.js";
 import GroupList from "views/GroupList.js";
 import CVList from "views/CVList.js";
@@ -38,7 +38,7 @@ const Admin = (props) => {
     setGroups(await getGroups());
 
     // Update area data (if previously saved in local store)
-    // const data = await chrome.storage.local.get(['area_data']);
+    // const data = await getArea();
     // if (Object.keys(data).length > 0) {
     //   setArea(data.area_data);
     // }
@@ -55,7 +55,7 @@ const Admin = (props) => {
   const routes = [
     {
       path: "/index",
-      component: <Index authors={authors} allQualisScores={allQualisScores} groups={groups} authorsNameLink={authorsNameLink}/>,
+      component: <Index authors={authors} allQualisScores={allQualisScores} groups={groups} authorsNameLink={authorsNameLink} prevArea={area}/>,
       layout: "/admin",
     },
     {

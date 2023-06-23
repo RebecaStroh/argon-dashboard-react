@@ -48,9 +48,9 @@ const DataGraph = ({
   showStatistics,
   end,
   init,
-  score
+  areaData
 }) => {
-  const years = Array.from({ length: 2023 - 1993 + 1 }, (_, index) => 1993 + index);
+  const years = stats.year;
   const qualis = {
     A1: Array(years.length).fill(0),
     A2: Array(years.length).fill(0),
@@ -112,8 +112,8 @@ const DataGraph = ({
 
       for (const key of dataCols) {
         const keyChar = key.slice(0, 1);
-        console.log("qualis[key]", qualisScores[key])
-        const value = score ? qualisScores[key]*stats[key][currYear] : stats[key][currYear];
+        const value = (areaData && areaData.scores && key in areaData.scores)
+          ? areaData.scores[key]*stats[key][currYear] : stats[key][currYear];
         dataCounts[keyChar][stats.year[currYear]] += value;
         yearCounts[keyChar] += value;
         yearCounts.tot += value;
@@ -127,7 +127,7 @@ const DataGraph = ({
     }
   }
 
-  const datasets = score ? [
+  const datasets = areaData && areaData.scores ? [
     {
       label: 'A',
       data: Object.values(dataCounts.A),

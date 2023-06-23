@@ -117,7 +117,7 @@ export async function getLattesData() {
 export async function getAreasData() {
   const module = await import("./qualis-scores-by-area-2017-2020.json");
   const areasData = module.default;
-  // areasData = await fetchJSON(chrome.runtime.getURL('data/qualis-scores-by-area-2017-2020.json'));
+  // areasData = await fetchJSON(chrome.runtime.getURL('data/qualis-scores-by-area-2017-2020.json')));
   
   return areasData || [];
 }
@@ -128,6 +128,12 @@ export async function getGroups() {
   // groupsData = await fetchJSON(chrome.runtime.getURL('data/groupTest.json'));
   
   return groupsData || [];
+}
+
+export async function getArea() {
+  const areaData = await chrome.storage.local.get(['area_data']);
+  
+  return areaData;
 }
 
 
@@ -267,7 +273,7 @@ export function getGraphicInfo(datasets, years, totalStats, showStatistics, end,
   };
   
   const data = {
-    labels: years,
+    labels: years.filter(year => year >= init && year <= end).map(year => year.toString()),
     datasets
   };
 

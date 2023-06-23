@@ -16,7 +16,7 @@ const DataTable = ({
   end,
   stats,
   showStatistics,
-  score
+  areaData
 }) => {
   const qualisScores = {
     A1: 100,
@@ -35,7 +35,7 @@ const DataTable = ({
   end = Number(end);
 
   // Init data arrays
-  const years = stats.year;
+  const years = stats.year.filter(year => year >= init && year <= end).map(year => year.toString());
   const qualis = {
     A1: Array(years.length).fill(0),
     A2: Array(years.length).fill(0),
@@ -85,7 +85,8 @@ const DataTable = ({
       const keyChar = key.slice(0, 1);
 
       // value
-      const currentValue = score ? qualisScores[key] : stats[key][currYear];
+      const currentValue = (areaData && areaData.scores && key in areaData.scores)
+        ? areaData.scores[key]*stats[key][currYear] : stats[key][currYear];
 
       // Qualis columns
       qualis[key][currYear] = currentValue;
@@ -119,7 +120,7 @@ const DataTable = ({
   const header = ["Ano"].concat(Object.keys(qualis))
     .concat(Object.keys(totals).map(item => item === "all" ? "Total" : "Tot " + item))
     .concat(Object.keys(percentages).map(item => "% " + item));
-  const headerLegend = [""].concat(Object.keys(qualis).map(item => qualisScores[item]))
+  const headerLegend = areaData && areaData.scores && [""].concat(Object.keys(qualis).map(item => qualisScores[item]))
     .concat(Object.keys(totals).map(item => ""))
     .concat(Object.keys(percentages).map(item => ""));
 
@@ -159,12 +160,12 @@ const DataTable = ({
                 }}>
                 {header.map(item => <th scope="col">{item}</th>)}
               </tr>
-              {score &&
+              {typeof areaData !== 'undefined' &&
                 <tr style={{
                   // display: 'table',
                   width: '98.5%'
                 }}>
-                {headerLegend.map(item => <th scope="col">{item}</th>)}
+                {Array.isArray(headerLegend) && headerLegend.map(item => <th scope="col">{item}</th>)}
                 </tr>
               }
             </thead>
