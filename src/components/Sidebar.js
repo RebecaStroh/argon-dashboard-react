@@ -153,7 +153,7 @@ const Sidebar = (props) => {
           {/* GitHub */}
           <Nav className="mb-md-3" navbar>
             <NavItem className="active-pro active">
-              <NavLink href="https://github.com/nabormendonca/qlattes">
+              <NavLink href="https://github.com/nabormendonca/qlattes" target="_blank">
                 <img 
                   alt="GitHub logo"
                   src={require('../assets/img/github-logo.png')} 

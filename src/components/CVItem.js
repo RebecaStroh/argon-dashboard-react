@@ -33,8 +33,8 @@ const CVItem = ({
       <div className="btn-icon-clipboard" style={{ flexDirection: 'row', display: 'flex', justifyContent: 'space-between' }}>
         <span>{authorName}</span>
         <div className="actions">
-          <i className="fas fa-external-link-alt" onClick={() => { window.open(CVLink, '_blank') }}/>
-          <i className="fas fa-trash-can" onClick={() => { alert("Apagar CV ou remover do grupo"); }}/>
+          <i className="fas fa-external-link-alt mr-1" onClick={() => { window.open(CVLink, '_blank') }} style={{fontSize: "18px"}}/>
+          <i className="fas fa-trash-can" onClick={() => { alert("Apagar CV ou remover do grupo"); }} style={{fontSize: "18px"}}/>
         </div>
       </div>
     </Col>
