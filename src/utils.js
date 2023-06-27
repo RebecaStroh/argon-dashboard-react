@@ -103,7 +103,7 @@ export async function fetchJSON(url) {
 
 
 /**
- * Data functions
+ * Data functions - CRUD
  */
 
 export async function getLattesData() {
@@ -123,9 +123,13 @@ export async function getAreasData() {
 }
 
 export async function getGroups() {
-  const module = await import("./groupTest.json");
-  const groupsData = module.default;
+  let groupsData = JSON.parse(localStorage.getItem("groupData"));
   // groupsData = await fetchJSON(chrome.runtime.getURL('data/groupTest.json'));
+
+  if (!groupsData) {
+    groupsData = [];
+    localStorage.setItem("groupData", JSON.stringify(groupsData));
+  }
   
   return groupsData || [];
 }
@@ -136,7 +140,72 @@ export async function getArea() {
   return areaData;
 }
 
+export async function addNewGroup(groupName, authors) {
+  const groupsData = JSON.parse(localStorage.getItem("groupData"));
 
+  const lastId = Object.keys(groupsData)[Object.keys(groupsData).length-1];
+  groupsData[Number(lastId)+1] = {
+    name: groupName,
+    authors: authors
+  };
+
+  // Save it back
+  localStorage.setItem("groupData", JSON.stringify(groupsData));
+}
+
+export async function deleteGroup(group) {
+  const groupsData = JSON.parse(localStorage.getItem("groupData"));
+
+  delete groupsData[group];
+
+  // Save it back
+  localStorage.setItem("groupData", JSON.stringify(groupsData));
+}
+
+export async function addCVinGroup(group, selectedAuthors) {
+  const groupsData = JSON.parse(localStorage.getItem("groupData"));
+  const groupData = groupsData[group];
+  groupData.authors = groupData.authors.concat(selectedAuthors); //.filter((value, index, self) => self.indexOf(value) === index)
+  
+  localStorage.setItem("groupData", JSON.stringify(groupsData));
+}
+
+export async function removeCVfromGroup(group, author) {
+  const groupsData = JSON.parse(localStorage.getItem("groupData"));
+  const groupData = groupsData[group];
+
+  groupData.authors = groupData.authors.filter(currAuthor => currAuthor !== author);
+  
+  localStorage.setItem("groupData", JSON.stringify(groupsData));
+}
+
+export async function removerCVfromDB(author) {
+  // delete CV data from lattes data and save it back to local storage area
+  // deleteLattesAuthorData(author);
+  // handleAuthorSelector("");
+  // setViewType("");
+
+  // delete authors[author];
+
+  // props.updateAuthorsList(authors);
+
+  alert('Remove CV from DB!');
+}
+
+/**
+ * Exports
+ */
+export async function exportGroupCV() {
+  alert('Export all CVs from Group!');
+}
+export async function exportCV() {
+  alert('Export CV!');
+}
+
+
+/**
+ * Data functions
+ */
 
 export function addMissingYearsToAuthorStats(stats, pubInfo) {
   const newStats = {};

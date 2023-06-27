@@ -47,6 +47,10 @@ const Admin = (props) => {
       }
     });
   }
+  
+  const updateGroups = async () => {
+    setGroups(await getGroups());
+  }
 
   const routes = [
     {
@@ -61,7 +65,7 @@ const Admin = (props) => {
     },
     {
       path: "/group-list",
-      component: <GroupList authors={authors} groups={groups}/>,
+      component: <GroupList authors={authors} groups={groups} updateGroups={updateGroups}/>,
       layout: "/admin",
     },
     {

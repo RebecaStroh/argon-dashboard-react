@@ -207,7 +207,7 @@ const Index = ({
         <Container fluid>
           <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto w-100">
             {/* Select authors / groups */}
-            <FormGroup className="w-100 mb-3" style={{ justifyContent: 'space-between' }}>
+            <FormGroup className="w-100" style={{ justifyContent: 'space-between' }}>
               <InputGroup className="input-group-alternative" style={{ width:"500px", border: 'none', backgroundColor: 'white' }}>
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
@@ -255,7 +255,7 @@ const Index = ({
             {showAll && <>
               <FormGroup className="w-100">
                 {/* área do conhecimento */}
-                <InputGroup className="input-group-alternative" style={{ marginRight: "15px", border: 'none', backgroundColor: 'white' }}>
+                <InputGroup className="input-group-alternative mt-3" style={{ marginRight: "15px", border: 'none', backgroundColor: 'white' }}>
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
                       <i className="fas fa-graduation-cap" style={{ color: '#415e98' }}/>
@@ -278,7 +278,7 @@ const Index = ({
                   </Input>
                 </InputGroup>
                 {/* View type */}
-                <InputGroup className="input-group-alternative" style={{ marginRight: "15px", border: 'none', backgroundColor: 'white' }}>
+                <InputGroup className="input-group-alternative mt-3" style={{ marginRight: "15px", border: 'none', backgroundColor: 'white' }}>
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
                       <i className="fas fa-chart-bar" style={{ color: '#415e98' }}/>
@@ -309,7 +309,7 @@ const Index = ({
                   </Input>
                 </InputGroup>
                 {/* Init year */}
-                <InputGroup className="input-group-alternative" style={{ width:"100px", border: 'none', backgroundColor: 'white' }}>
+                <InputGroup className="input-group-alternative mt-3" style={{ width:"100px", border: 'none', backgroundColor: 'white' }}>
                   <Input
                     id="exampleEmail"
                     name="initYear"
@@ -322,11 +322,11 @@ const Index = ({
                     style={{ color:'#415e98' }}
                   />
                 </InputGroup>
-                <Label style={{ marginLeft: "10px", marginRight: "10px", color: '#415e98' }}>
+                <Label className="mt-3" style={{ marginLeft: "10px", marginRight: "10px", color: '#415e98' }}>
                   a
                 </Label>
                 {/* End year */}
-                <InputGroup className="input-group-alternative" style={{ width:"100px", border: 'none', backgroundColor: 'white', marginRight: "10px" }}>
+                <InputGroup className="input-group-alternative mt-3" style={{ width:"100px", border: 'none', backgroundColor: 'white', marginRight: "10px" }}>
                   <Input
                     style={{ color:'#415e98' }}
                     id="exampleEmail"
@@ -340,7 +340,7 @@ const Index = ({
                   />
                 </InputGroup>
                 {/* Period */}
-                <InputGroup className="input-group-alternative" style={{ border: 'none', backgroundColor: 'white' }}>
+                <InputGroup className="input-group-alternative mt-3" style={{ border: 'none', backgroundColor: 'white' }}>
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
                       <i className="fas fa-calendar-check" style={{ color:'#415e98' }} />
@@ -361,7 +361,7 @@ const Index = ({
                   </Input>
                 </InputGroup>
                 {/* Statistics */}
-                <InputGroupText style={{ backgroundColor: "transparent", border: "none" }}>
+                <InputGroupText className="mt-3" style={{ backgroundColor: "transparent", border: "none" }}>
                   <Input
                     addon
                     aria-label="Checkbox for following text input"

@@ -19,14 +19,44 @@ import {
 import GroupItem from "components/GroupItem";
 import { useState } from "react";
 
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+
+import {
+  addNewGroup,
+} from "../utils";
+
 const GroupList = ({
   authors,
-  groups
+  groups,
+  updateGroups
 }) => {
+  if (!groups) groups = [];
 
   const [modal, setModal] = useState(false);
+  const [newGroupName, setNewGroupName] = useState("");
+  const [newGroupAuthors, setNewGroupAuthors] = useState([]);
 
   const toggle = () => setModal(!modal);
+
+  const handleNewButton = () => {
+    addNewGroup(newGroupName, newGroupAuthors);
+    toggle();
+    setNewGroupAuthors([]);
+    setNewGroupName("");
+    updateGroups();
+  };
+
+  const handleNewGroupAuthors = (event, values) => {
+    setNewGroupAuthors(values.map(value => value.link));
+  }
+
+  const handleCancelButton = () => {
+    setNewGroupAuthors([]);
+    setNewGroupName("");
+    toggle();
+  }
+
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -66,8 +96,11 @@ const GroupList = ({
             {Object.entries(groups).map(group =>
               <GroupItem
                 key={group[0]}
+                groupId={group[0]}
                 groupName={group[1].name}
+                allAuthors={Object.entries(authors).filter(author => !group[1].authors.includes(author[0])).map(author => ({link: author[0], name: author[1].name}))}
                 authors={group[1].authors.map(authorLink => ({link: authorLink, name: authors[authorLink].name}))}
+                updateGroups={updateGroups}
               />
             )}
           </div>
@@ -78,14 +111,46 @@ const GroupList = ({
       <Modal isOpen={modal}>
         <ModalHeader>Adicionar um novo Grupo</ModalHeader>
         <ModalBody>
-          <Input placeholder="Nome do grupo" type="text" />
-          <Input multiple placeholder="Selecione um CV" type="text" />
+          <Input placeholder="Nome do grupo" type="text" value={newGroupName} onChange={(e) => setNewGroupName(e.target.value)}/>
+          <Autocomplete
+            onChange={handleNewGroupAuthors}
+            multiple
+            options={Object.entries(authors).map(author => ({link: author[0], name: author[1].name}))}
+            getOptionLabel={(option) => option.name}
+            defaultValue={[]}
+            filterSelectedOptions
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder="Selecione um CV"
+              />
+            )}
+            sx={{
+              width: '90%',
+              '& .MuiButtonBase-root': {
+                color: '#415e98',
+              },
+              '& .MuiInputBase-input': {
+                color: '#415e98',
+              },
+              '& fieldset': {
+                border: "none",
+              },
+              '& .MuiInputBase-root > .MuiButtonBase-root': {
+                border: '1px #415e98 solid',
+                backgroundColor: 'transparent',
+                '& .MuiSvgIcon-root': {
+                  color: "#415e98"
+                }
+              }
+            }}
+          />
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={toggle}>
+          <Button color="primary" onClick={handleNewButton}>
             Salvar
           </Button>{' '}
-          <Button color="secondary" onClick={toggle}>
+          <Button color="secondary" onClick={handleCancelButton}>
             Cancelar
           </Button>
         </ModalFooter>
