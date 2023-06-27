@@ -17,22 +17,55 @@ import {
 // core components
 import CVItem from "components/CVItem";
 
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 const CVList = ({
-  authors
-}) => {  
+  authorsNameLink
+}) => {
+  const [filteredAuthors, setFilteredAuthors] = useState(authorsNameLink);
+  const searchAuthor = (event, values) => {
+    if (!values)
+      setFilteredAuthors(authorsNameLink);
+    else
+      setFilteredAuthors([values]);
+  }
+
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
         <Container fluid>
           <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex">
-            <FormGroup className="w-100 mb-1">
-              <InputGroup className="input-group-alternative" style={{ marginRight: "15px", border: 'none', backgroundColor: 'white' }}>
+            <FormGroup className="w-100" style={{ justifyContent: 'space-between' }}>
+              <InputGroup className="input-group-alternative" style={{ width:"400px", border: 'none', backgroundColor: 'white' }}>
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="fas fa-search" style={{ color: "#415e98" }}/>
+                    <i className="fas fa-search" style={{ color: '#415e98' }}/>
                   </InputGroupText>
                 </InputGroupAddon>
-                <Input placeholder="Search" type="text" style={{ color: "#415e98" }}/>
+                <Autocomplete
+                  onChange={searchAuthor}
+                  options={authorsNameLink}
+                  getOptionLabel={(option) => option.name}
+                  filterSelectedOptions
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      placeholder="Pesquise por um CV"
+                    />
+                  )}
+                  sx={{
+                    width: '80%',
+                    '& .MuiButtonBase-root': {
+                        color: '#415e98',
+                    },
+                    '& .MuiInputBase-input': {
+                        color: '#415e98',
+                    },
+                    '& fieldset': {
+                      border: "none",
+                    }
+                  }}
+                />
               </InputGroup>
             </FormGroup>
           </Form>
@@ -50,7 +83,7 @@ const CVList = ({
               </CardHeader>
               <CardBody>
                 <Row className="icon-examples">
-                  {Object.entries(authors).map(author => <CVItem authorName={author[1].name} CVLink={author[0]} key={author[0]}/>)}
+                  {filteredAuthors.map(author => <CVItem authorName={author.name} CVLink={author.link} key={author.link}/>)}
                 </Row>
               </CardBody>
             </Card>

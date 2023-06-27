@@ -29,7 +29,8 @@ import {
 const GroupList = ({
   authors,
   groups,
-  updateGroups
+  updateGroups,
+  authorsNameLink
 }) => {
   if (!groups) groups = [];
 
@@ -57,19 +58,47 @@ const GroupList = ({
     toggle();
   }
 
+  const searchGroupOrAuthor = (event, values) => {
+    
+  }
+
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
         <Container fluid>
           <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex">
-            <FormGroup className="w-100 mb-1">
-              <InputGroup className="input-group-alternative" style={{ marginRight: "15px", border: 'none', backgroundColor: 'white' }}>
+            <FormGroup className="w-100" style={{ justifyContent: 'space-between' }}>
+              <InputGroup className="input-group-alternative" style={{ width:"400px", border: 'none', backgroundColor: 'white' }}>
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="fas fa-search" style={{ color: "#415e98" }}/>
+                    <i className="fas fa-search" style={{ color: '#415e98' }}/>
                   </InputGroupText>
                 </InputGroupAddon>
-                <Input placeholder="Search" type="text"  style={{ color: "#415e98" }}/>
+                <Autocomplete
+                  onChange={searchGroupOrAuthor}
+                  options={authorsNameLink.concat(Object.values(groups))}
+                  getOptionLabel={(option) => option.name}
+                  filterSelectedOptions
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      placeholder="Pesquise por um CV ou grupo"
+                    />
+                  )}
+                  sx={{
+                    width: '80%',
+                    '& .MuiButtonBase-root': {
+                        display: 'none',
+                        color: '#415e98',
+                    },
+                    '& .MuiInputBase-input': {
+                        color: '#415e98',
+                    },
+                    '& fieldset': {
+                      border: "none",
+                    }
+                  }}
+                />
               </InputGroup>
             </FormGroup>
           </Form>
