@@ -204,8 +204,8 @@ const Index = ({
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
         <Container fluid>
           <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto w-100">
-            {/* Select authors / groups */}
             <FormGroup className="w-100" style={{ justifyContent: 'space-between' }}>
+              {/* Select authors / groups */}
               <InputGroup className="input-group-alternative" style={{ width:"500px", border: 'none', backgroundColor: 'white' }}>
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
@@ -246,8 +246,9 @@ const Index = ({
                   }}
                 />
               </InputGroup>
+              {/* Label */}
               {showAll && <Label style={{ marginLeft: "10px", marginRight: "10px", color: '#415e98' }}>
-                X artigos em periódicos entre {initYear} e {endYear}
+                {Object.values(pubInfo).flat().length} artigos em periódicos entre {initYear} e {endYear}
               </Label>}
             </FormGroup>
             {showAll && <>
