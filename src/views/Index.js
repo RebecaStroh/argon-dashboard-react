@@ -18,6 +18,7 @@ import TextField from '@mui/material/TextField';
 
 import DataTable from "components/Data/DataTable";
 import DataGraph from "components/Data/DataGraph";
+import TopTable from "components/Data/TopTable";
 import { addMissingYearsToAuthorStats, getQualisStats } from '../utils';
 
 
@@ -39,6 +40,7 @@ const Index = ({
   const [endYearInput, setEndYearInput] = useState(0);
 
   const [stats, setStats] = useState([]);
+  const [pubInfo, setPubInfo] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
   const cvOptions = authorsNameLink.concat(Object.values(groups));
@@ -188,16 +190,13 @@ const Index = ({
     }
     authorStats.totalPubs = totalPubs;
 
-    // console.log("ANOS: ", years[0], years[years.length-1])
-    // console.log("authorStats: ", authorStats)
-    // console.log("mergedPubInfos: ", mergedPubInfos)
-
     setShowAll(true);
     setStats(authorStats.stats);
     setInitYearInput(years[0]);
     setEndYearInput(years[years.length-1]);
     setInitYear(years[0]);
     setEndYear(years[years.length-1]);
+    setPubInfo(mergedPubInfos);
   }
 
   return (
@@ -360,7 +359,7 @@ const Index = ({
                   </Input>
                 </InputGroup>
                 {/* Statistics */}
-                <InputGroupText className="mt-3" style={{ backgroundColor: "transparent", border: "none" }}>
+                <InputGroupText className="mt-3 ml-4" style={{ backgroundColor: "transparent", border: "none" }}>
                   <Input
                     addon
                     aria-label="Checkbox for following text input"
@@ -368,7 +367,7 @@ const Index = ({
                     value={showStatistics}
                     onChange={(e) =>setShowStatistics(!showStatistics)}
                   />
-                  <Label style={{ marginLeft: "10px", color:'#415e98' }}>
+                  <Label style={{ color:'#415e98' }} className="ml-2">
                     Exibir estatísticas
                   </Label>
                 </InputGroupText>
@@ -386,8 +385,8 @@ const Index = ({
           {viewType === "qualisGraphicView" && <DataGraph graphName="Gráfico de classificação Qualis" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}
           {viewType === "scoreTableView" && <DataTable tableName="Tabela de pontuação Qualis" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics} areaData={areaData}/>}
           {viewType === "scoreGraphicView" && <DataGraph graphName="Gráfico de pontuação Qualis" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics} areaData={areaData}/>}
-          {viewType === "top5View" && <DataTable tableName="5 melhores publicações" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}
-          {viewType === "top10View" && <DataTable tableName="10 melhores publicações" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}
+          {viewType === "top5View" && <TopTable tableName="5 melhores publicações" topN={5} init={initYearInput} end={endYearInput} pubInfo={pubInfo}/>}
+          {viewType === "top10View" && <TopTable tableName="10 melhores publicações" topN={10} init={initYearInput} end={endYearInput} pubInfo={pubInfo}/>}
         </>}
       </Container>
     </>
