@@ -216,7 +216,7 @@ export async function removerCVfromDB(author) {
 /**
  * Exports
  */
-export async function exportGroupCV(authors) {
+export async function exportGroupCV(authors, areaData) {
   const module = await import("./dataTest.json");
   let lattesData = await module.default;
   lattesData = lattesData['lattes_data'] || {};
@@ -225,7 +225,6 @@ export async function exportGroupCV(authors) {
     .map(authorLink => authors.includes(authorLink) ? {link: authorLink, ...lattesData[authorLink]} : null)
     .filter(author => author !== null);
 
-  const areaData = [];
   let authorsName = [];
   let removedAuthors = [];
   authorsData.forEach((authorData) => {
@@ -261,8 +260,7 @@ export async function exportGroupCV(authors) {
   }
 }
 
-export async function exportCV(authorLink) {
-  const areaData = [];
+export async function exportCV(authorLink, areaData) {
   const authorData = await getAuthorData(authorLink);
   const pubInfo = authorData.pubInfo;
 

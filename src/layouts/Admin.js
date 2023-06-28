@@ -60,12 +60,12 @@ const Admin = (props) => {
     },
     {
       path: "/cv-list",
-      component: <CVList authorsNameLink={authorsNameLink}/>,
+      component: <CVList authorsNameLink={authorsNameLink} allQualisScores={allQualisScores}/>,
       layout: "/admin",
     },
     {
       path: "/group-list",
-      component: <GroupList authors={authors} groups={groups} updateGroups={updateGroups} authorsNameLink={authorsNameLink}/>,
+      component: <GroupList authors={authors} groups={groups} updateGroups={updateGroups} authorsNameLink={authorsNameLink} allQualisScores={allQualisScores}/>,
       layout: "/admin",
     },
     {

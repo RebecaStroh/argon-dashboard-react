@@ -20,7 +20,8 @@ import CVItem from "components/CVItem";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 const CVList = ({
-  authorsNameLink
+  authorsNameLink,
+  allQualisScores
 }) => {
   const [filteredAuthors, setFilteredAuthors] = useState(authorsNameLink);
   const searchAuthor = (event, values) => {
@@ -83,7 +84,7 @@ const CVList = ({
               </CardHeader>
               <CardBody>
                 <Row className="icon-examples">
-                  {filteredAuthors.map(author => <CVItem authorName={author.name} CVLink={author.link} key={author.link}/>)}
+                  {filteredAuthors.map(author => <CVItem authorName={author.name} CVLink={author.link} key={author.link} allQualisScores={allQualisScores}/>)}
                 </Row>
               </CardBody>
             </Card>

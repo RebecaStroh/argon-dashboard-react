@@ -59,7 +59,6 @@ const Index = ({
 
     // get selected area
     const newArea = event.target.value;
-    setArea(newArea);
 
     if (newArea === 'undefined') {
       // save area data to local store

@@ -30,7 +30,8 @@ const GroupList = ({
   authors,
   groups,
   updateGroups,
-  authorsNameLink
+  authorsNameLink,
+  allQualisScores
 }) => {
   if (!groups) groups = [];
 
@@ -130,6 +131,7 @@ const GroupList = ({
                 allAuthors={Object.entries(authors).filter(author => !group[1].authors.includes(author[0])).map(author => ({link: author[0], name: author[1].name}))}
                 authors={group[1].authors.map(authorLink => ({link: authorLink, name: authors[authorLink].name}))}
                 updateGroups={updateGroups}
+                allQualisScores={allQualisScores}
               />
             )}
           </div>
