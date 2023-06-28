@@ -44,13 +44,17 @@ const CVItem = ({
     window.open(CVLink, '_blank');
   }
 
+  function handleExportCV() {
+    exportCV(CVLink);
+  }
+
   return (
     <Col lg="3" md="6">
       <div className="btn-icon-clipboard" style={{ flexDirection: 'row', display: 'flex', justifyContent: 'space-between' }}>
         <span>{authorName}</span>
         <div className="actions">
           <i className="fas fa-external-link-alt mr-1" onClick={handleLinkButton} style={{fontSize: "14px"}} title="Ir para link externo"/>
-          {!group && <i className="fas fa-file-export mr-1" onClick={exportCV} style={{fontSize: "14px"}} title="Exportar curriculo"/>}
+          {!group && <i className="fas fa-file-export mr-1" onClick={handleExportCV} style={{fontSize: "14px"}} title="Exportar curriculo"/>}
           <i className={group ? "fas fa-close" : "fas fa-trash-can"} onClick={handleRemoveButton} style={{fontSize: "14px"}} title={group? "Remover curriculo do grupo" : "Remover curriculo do banco"}/>
         </div>
       </div>

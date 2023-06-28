@@ -79,6 +79,21 @@ export function linearRegression(xData, yData) {
 }
 
 /**
+ * String manipulation functions
+ */
+
+
+// normalize string so it can safely be used as a file name
+function removeSpecialChars(str) {
+  return str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\w\s]/gi, '')
+    .replace(/ /g, '_')
+    .toLowerCase();
+}
+
+/**
  * Fetch URL functions
  */
 
@@ -112,6 +127,12 @@ export async function getLattesData() {
   // const lattesData = await chrome.storage.local.get('lattes_data');
   
   return lattesData['lattes_data'] || {};
+}
+
+export async function getAuthorData(author) {
+  const lattesData = await getLattesData();
+  
+  return lattesData[author];
 }
 
 export async function getAreasData() {
@@ -195,13 +216,132 @@ export async function removerCVfromDB(author) {
 /**
  * Exports
  */
-export async function exportGroupCV() {
-  alert('Export all CVs from Group!');
-}
-export async function exportCV() {
-  alert('Export CV!');
+export async function exportGroupCV(authors) {
+  const module = await import("./dataTest.json");
+  let lattesData = await module.default;
+  lattesData = lattesData['lattes_data'] || {};
+
+  const authorsData = Object.keys(lattesData)
+    .map(authorLink => authors.includes(authorLink) ? {link: authorLink, ...lattesData[authorLink]} : null)
+    .filter(author => author !== null);
+
+  const areaData = [];
+  let authorsName = [];
+  let removedAuthors = [];
+  authorsData.forEach((authorData) => {
+    const pubInfo = authorData.pubInfo;
+    if ((Array.isArray(pubInfo) && pubInfo.length > 0) 
+      || (typeof pubInfo === 'object' && Object.entries(pubInfo).length > 0)) {
+      // get area label
+      
+      authorsName.push(authorData.name);
+    } else {
+      removedAuthors.push(authorData.name);
+    }
+  });
+
+  const areaString = Object.keys(areaData).length !== 0
+  ? ` utilizando a pontuação da ${areaData.label}`
+  : '';
+
+  const authorsNameString = authorsName.map((authorName, index) => index === 0 ? authorName : index === authorsName.length-1 ? " e "+authorName : ", "+authorName);
+  const removedAuthorsString = removedAuthors.map((authorName, index) => index === 0 ? authorName : index === authorsName.length-1 ? " e "+authorName : ", "+authorName);
+
+  if (removedAuthors.length !== 0) 
+    alert('Estes CV não possuem dados de publicações em periódico: ' + removedAuthorsString);
+
+  if (authorsName !== 0) {
+    var result = window.confirm(
+      `Confirma a exportação dos dados do CV de ${authorsNameString} para o formato CSV${areaString}?`
+    );
+    if (result) {
+      // export CV data to external file
+      exportCVDataToFile(authorsData, areaData);
+    }
+  }
 }
 
+export async function exportCV(authorLink) {
+  const areaData = [];
+  const authorData = await getAuthorData(authorLink);
+  const pubInfo = authorData.pubInfo;
+
+  if ((Array.isArray(pubInfo) && pubInfo.length > 0) 
+    || (typeof pubInfo === 'object' && Object.entries(pubInfo).length > 0)) {
+    // get area label
+    const areaString = Object.keys(areaData).length !== 0
+        ? ` utilizando a pontuação da ${areaData.label}`
+        : '';
+
+    var result = window.confirm(
+      `Confirma a exportação dos dados do CV de ${authorData.name} para o formato CSV${areaString}?`
+    );
+    if (result) {
+      // export CV data to external file
+      exportCVDataToFile([authorData], areaData);
+    }
+  } else {
+    alert('Este CV não possui dados de publicações em periódico.');
+  }
+}
+
+function exportCVDataToFile(authorsData, areaData) {
+  // export author data in CSV format
+  console.log({
+    url:
+      'data:text/csv;charset=utf-8,' +
+      encodeURIComponent(convertLattesDataToCSV(authorsData, areaData)),
+    filename: `CVs.csv`,
+  });
+}
+
+function convertLattesDataToCSV(authorsData, areaData) {
+  const headers = [
+    'nome',
+    'lattes_url',
+    'ano_publicacao',
+    'titulo_publicacao',
+    'periodico',
+    'issn',
+    'qualis',
+    'pontos',
+    'area',
+    'ano_base',
+  ];
+  // get area label and scores (if available)
+  var areaLabel = '';
+  var areaScores;
+  if (Object.keys(areaData).length !== 0) {
+    areaLabel = areaData.label;
+    areaScores = areaData.scores;
+  }
+  
+  const rows = [];
+  authorsData.forEach((authorData) => {
+    for (const pubInfoYear of Object.keys(authorData.pubInfo)) {
+      for (const pubListElem of authorData.pubInfo[pubInfoYear]) {
+        const row = [
+          `"${authorData.name}"`,
+          authorData.link,
+          pubInfoYear,
+          `"${pubListElem.title}"`,
+          `"${pubListElem.pubName}"`,
+          pubListElem.issn,
+          pubListElem.qualis,
+          pubListElem.qualis !== 'N' && areaLabel !== ''
+            ? getQualisScore(pubListElem.qualis, 1, areaScores)
+            : '',
+          pubListElem.qualis !== 'N' ? areaLabel : '',
+          pubListElem.baseYear,
+        ];
+        rows.push(row);
+      }
+    }
+  });
+  
+  const csvArray = [headers.join(','), ...rows.map((row) => row.join(','))];
+  return csvArray.join('\n');
+}
 
 /**
  * Data functions

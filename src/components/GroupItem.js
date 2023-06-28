@@ -56,8 +56,9 @@ const GroupItem = ({
 
   // Group functions
   const handleGroupExport = () => {
-    exportGroupCV(groupId);
+    exportGroupCV(authors.map(author => author.link));
   }
+
   const handleGroupDelete = () => {
     deleteGroup(groupId);
     updateGroups();
