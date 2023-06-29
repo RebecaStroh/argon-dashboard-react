@@ -19,7 +19,7 @@ import TextField from '@mui/material/TextField';
 import DataTable from "components/Data/DataTable";
 import DataGraph from "components/Data/DataGraph";
 import TopTable from "components/Data/TopTable";
-import { addMissingYearsToAuthorStats, getQualisStats } from '../utils';
+import { addMissingYearsToPubInfo, getQualisStats, addMissingYearsToAuthorStats } from '../utils';
 
 
 const Index = ({
@@ -173,10 +173,11 @@ const Index = ({
       pubInfo: [],
     };
     // add missing years (if any) to author stats
-    authorStats = addMissingYearsToAuthorStats(
-      getQualisStats(mergedPubInfos, 'qualis', scores),
-      mergedPubInfos
-    );
+    const pubInfoComplete = addMissingYearsToPubInfo(mergedPubInfos);
+    console.log('mergedPubInfos', mergedPubInfos);
+    console.log('pubInfoComplete', pubInfoComplete);
+    authorStats = addMissingYearsToAuthorStats(getQualisStats(pubInfoComplete, 'qualis', scores), pubInfoComplete);
+    console.log('authorStats', authorStats);
 
     // get total journal publications
     var totalPubs = 0;

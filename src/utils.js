@@ -78,6 +78,10 @@ export function linearRegression(xData, yData) {
   };
 }
 
+export const roundNumber = (number) => {
+  return number.toString().indexOf('.') !== -1 ? number.toFixed(1) : number;
+}
+
 /**
  * String manipulation functions
  */
@@ -352,6 +356,20 @@ export function addMissingYearsToAuthorStats(stats, pubInfo) {
     newStats[key] = [];
   }
 
+  const newPubInfo = {};
+  const lastYear = new Date().getFullYear();
+  const firstYear = Object.keys(pubInfo)[0];
+  for (let year = lastYear; year >= firstYear; year--) {
+    // add empty counts to missing year stats
+    
+    if (Object.keys(pubInfo).includes(year)) {
+      newPubInfo[year] = pubInfo[year];
+    } else {
+      newPubInfo[year] = [];
+    }
+      
+  }
+
   let currYear = new Date().getFullYear() + 1;
   for (const pubInfoYear of Object.keys(pubInfo).reverse()) {
     // add empty results for missing years (if any)
@@ -380,9 +398,27 @@ export function addMissingYearsToAuthorStats(stats, pubInfo) {
     minYear: NaN,
     maxYear: NaN,
     totalPubs: NaN,
-    pubInfo: pubInfo,
+    pubInfo: newPubInfo,
   };
 }
+
+
+export function addMissingYearsToPubInfo(pubInfo) {
+  const newPubInfo = {};
+  const lastYear = new Date().getFullYear();
+  const firstYear = Object.keys(pubInfo)[0];
+  for (let year = lastYear; year >= firstYear; year--) {
+    // add empty counts to missing year stats
+    if (Object.keys(pubInfo).includes(year.toString())) {
+      newPubInfo[year] = pubInfo[year];
+    } else {
+      newPubInfo[year] = [];
+    }
+  }
+
+  return newPubInfo;
+}
+
 export function getQualisStats(pubInfo, metric = 'qualis', scores = {}) {
   const qualisCats = ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4', 'C', 'N'];
   const qualisCols = ['year'].concat(qualisCats);

@@ -10,6 +10,11 @@ import {
 
 // core components
 
+import {
+  linearRegression,
+  roundNumber
+} from "../../utils"
+
 const DataTable = ({
   tableName,
   init,
@@ -75,6 +80,16 @@ const DataTable = ({
     '%B': 0,
   }
 
+  // CHANGE - reset total stats
+  let statistics = {};
+  for (const key of ['#A', '#B', '#all', '%A', '%B']) {
+    statistics[key] = {
+      best: { count: 0, year: 0 },
+      countList: [],
+      yearList: [],
+    };
+  }
+
   // Get row datas
   for (let currYear = 0; currYear < years.length; currYear++) {
     // se o ano do stats nao estiver no meio do intervalo, pula
@@ -109,11 +124,28 @@ const DataTable = ({
 
     percentages.A[currYear] = totals.all[currYear]===0 ? 0 : (percentages.A[currYear]/totals.all[currYear]*100);
     percentages.B[currYear] = totals.all[currYear]===0 ? 0 : (percentages.B[currYear]/totals.all[currYear]*100);
-  }
 
-  // Colocar na utils
-  const roundNumber = (number) => {
-    return number.toString().indexOf('.') !== -1 ? number.toFixed(1) : number;
+    // CHANGE - 
+    const yearCounts = {
+      '#A': totals.A[currYear],
+      '#B': totals.B[currYear],
+      '#all': totals.all[currYear],
+      '%A': percentages.A[currYear],
+      '%B': percentages.B[currYear]
+    };
+    
+    // CHANGE - 
+    for (const key of Object.keys(statistics)) {
+      // update total stats lists
+      statistics[key].countList.push(yearCounts[key]);
+      statistics[key].yearList.push(stats.year[currYear]);
+
+      // update total stats best
+      if (yearCounts[key] >= statistics[key].best.count) {
+        statistics[key].best.count = yearCounts[key];
+        statistics[key].best.year = stats.year[currYear];
+      }
+    }
   }
   
   // Create header from data arrays
@@ -128,18 +160,18 @@ const DataTable = ({
   const footer = ["Total"].concat(Object.values(totalStats).map(number => roundNumber(number)));
 
   // Get statistics
-  const mean = ["Média"].concat(Object.keys(qualis).map(item => ""))
-    .concat(Object.keys(totals).map(item => 0))
-    .concat(Object.keys(percentages).map(item => 0));
-  const mediana = ["Mediana"].concat(Object.keys(qualis).map(item => ""))
-    .concat(Object.keys(totals).map(item => 0))
-    .concat(Object.keys(percentages).map(item => 0));
-  const tendencia = ["Tendência"].concat(Object.keys(qualis).map(item => ""))
-    .concat(Object.keys(totals).map(item => 0))
-    .concat(Object.keys(percentages).map(item => 0));
-  const bestYear = ["Melhor ano"].concat(Object.keys(qualis).map(item => ""))
-    .concat(Object.keys(totals).map(item => 0))
-    .concat(Object.keys(percentages).map(item => 0));
+  const mean = ["Média"].concat(Object.keys(qualis).map(item => ""));
+  const median = ["Mediana"].concat(Object.keys(qualis).map(item => ""));
+  const trend = ["Tendência"].concat(Object.keys(qualis).map(item => ""));
+  const bestYear = ["Melhor ano"].concat(Object.keys(qualis).map(item => ""));
+
+  // CHANGE - 
+  for (const col of Object.keys(statistics)) {
+    mean.push(statistics[col].countList == 0 ? 0 : statistics[col].countList.mean().toFixed(2));
+    median.push(statistics[col].countList == 0 ? 0 : statistics[col].countList.median().toFixed(2));
+    trend.push(statistics[col].countList == 0 ? 0 : linearRegression(statistics[col].yearList, statistics[col].countList).slope.toFixed(2));
+    bestYear.push(statistics[col].best.year > 0 ? statistics[col].best.year : '');
+  }
 
   return (
     <Row>
@@ -202,13 +234,13 @@ const DataTable = ({
                     // display: 'table',
                     width: '98.5%'
                   }}>
-                  {mediana.map(item => <th scope="col" style={{ borderTop: 'none', borderBottom: 'none' }}>{item}</th>)}
+                  {median.map(item => <th scope="col" style={{ borderTop: 'none', borderBottom: 'none' }}>{item}</th>)}
                 </tr>
                 <tr style={{
                     // display: 'table',
                     width: '98.5%'
                   }}>
-                  {tendencia.map(item => <th scope="col" style={{ borderTop: 'none', borderBottom: 'none' }}>{item}</th>)}
+                  {trend.map(item => <th scope="col" style={{ borderTop: 'none', borderBottom: 'none' }}>{item}</th>)}
                 </tr>
                 <tr style={{
                     // display: 'table',
