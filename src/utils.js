@@ -484,18 +484,145 @@ export function getQualisScore(qualisCategory, count, areaScores) {
  * Graph functions
  */
 
+export function getBoundedTrendPoint(regression, x, xList, yBound) {
+  let newX = parseFloat(x);
+  let newXIndex = xList.indexOf(Math.round(newX));
+  let y = regression.calcY(newX);
+
+  if (isNaN(y)) return { x: 0, y: 0 };
+
+  if (y < yBound.min) {
+    newX = (yBound.min - regression.yStart) / regression.slope;
+    newXIndex = xList.indexOf(Math.round(newX));
+    return { x: newXIndex, y: yBound.min };
+  } else if (y > yBound.max) {
+    newX = (yBound.max - regression.yStart) / regression.slope;
+    newXIndex = xList.indexOf(Math.round(newX));
+    return { x: newXIndex, y: yBound.max };
+  }
+
+  return { x: newXIndex, y: y };
+}
+
+export function getStatisticsAnnotations(totalStats, showStatistics, end, init) {
+  const lineAnnotations = [];
+
+  if (showStatistics && end - init > 0) {
+    // create mean line annotation
+    const mean = totalStats.tot.countList.mean().toFixed(2);    
+    lineAnnotations.push({
+      id: "mean",
+      type: 'line',
+      mode: 'horizontal',
+      borderColor: '#2c4c8c',
+      value: mean,
+      scaleID: "y",
+      borderWidth: 1,
+      borderDash: [6, 6],
+      label: {
+        content: 'Média ' + mean,
+        position: 'end',
+        padding: 4,
+        backgroundColor: 'rgba(44, 76, 140, 0.7)',
+        font: {
+          size: 11,
+        },
+        z: 10,
+        display: true,
+      }
+    });
+    
+    // create median line annotation
+    const median = totalStats.tot.countList.median().toFixed(2);
+    lineAnnotations.push({
+      id: "median",
+      type: 'line',
+      mode: 'horizontal',
+      borderColor: '#2c4c8c',
+      value: median,
+      scaleID: "y",
+      borderWidth: 1,
+      borderDash: [4, 4],
+      label: {
+        content: 'Mediana ' + median,
+        position: '50%',
+        padding: 4,
+        backgroundColor: 'rgba(44, 76, 140, 0.7)',
+        font: {
+          size: 11,
+        },
+        z: 10,
+        display: true,
+      }
+    });
+
+    // get max counts in totalStats
+    const maxCount = totalStats.tot.countList.max();
+
+    // create trend line annotation
+    const regression = linearRegression(
+      totalStats.tot.yearList,
+      totalStats.tot.countList
+    );
+    const minPoint = getBoundedTrendPoint(
+      regression,
+      init,
+      totalStats.tot.yearList.slice().reverse(),
+      {
+        min: 0,
+        max: maxCount,
+      }
+    );
+    const maxPoint = getBoundedTrendPoint(
+      regression,
+      end,
+      totalStats.tot.yearList.slice().reverse(),
+      {
+        min: 0,
+        max: maxCount,
+      }
+    );
+    lineAnnotations.push({
+      id: "trend",
+      type: 'line',
+      borderColor: '#2c4c8c',
+      xMin: minPoint.x,
+      xMax: maxPoint.x,
+      xScaleID: 'x',
+      yMin: minPoint.y.toFixed(2),
+      yMax: maxPoint.y.toFixed(2),
+      yScaleID: 'y',
+      borderWidth: 1,
+      borderDash: [2, 2],
+      label: {
+        content: 'Tendência ' + regression.slope.toFixed(2),
+        position: 'end',
+        padding: 4,
+        backgroundColor: 'rgba(44, 76, 140, 0.7)', // 'rgba(0, 0, 0, 0.7)',
+        font: {
+          size: 11,
+        },
+        z: 10,
+        display: true,
+      }
+    })
+  }
+
+  return lineAnnotations;
+}
+
 export function getGraphicInfo(datasets, years, totalStats, showStatistics, end, init) {  
-  // const lineAnnotations = getStatisticsAnnotations(totalStats, showStatistics, end, init);
+  const lineAnnotations = getStatisticsAnnotations(totalStats, showStatistics, end, init);
   const options = {
-    // plugins: {
-    //   annotation: {
-    //     // annotations: lineAnnotations
-    //   },
-    //   legend: {
-    //     position: 'top',
-    //   },
-    // },
-    // responsive: true,
+    plugins: {
+      annotation: {
+        annotations: lineAnnotations
+      },
+      legend: {
+        position: 'top',
+      },
+    },
+    responsive: true,
     scales: {
       x: {
         stacked: true,

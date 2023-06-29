@@ -1,16 +1,3 @@
-// javascipt plugin for creating charts
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-
-// react plugin used to create charts
-import { Bar } from "react-chartjs-2";
 
 // reactstrap components
 import {
@@ -27,18 +14,27 @@ import {
   getGraphicInfo
 } from '../../utils';
 
-// Plugin
-// import annotationPlugin from 'chartjs-plugin-annotation';
-
-// ChartJS.register(
-//   CategoryScale,
-//   LinearScale,
-//   BarElement,
-//   Title,
-//   Tooltip,
-//   Legend
-// );
+import annotationPlugin from 'chartjs-plugin-annotation';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 // ChartJS.register(annotationPlugin);
+
 
 // core components
 
@@ -197,11 +193,11 @@ const DataGraph = ({
   //   },
   // };
 
-  const {data, options} = getGraphicInfo(datasets, stats.year, [], showStatistics, end, init);
+  const {data, options} = getGraphicInfo(datasets, stats.year, totalStats, showStatistics, end, init);
 
   return (
     <Row>
-      <Col className="mb-5 mb-xl-0" xl="12">
+      <Col className="mb-5 mb-xl-0" xl="8">
         <Card className="shadow">
           <CardHeader className="bg-transparent">
             <Row className="align-items-center">
