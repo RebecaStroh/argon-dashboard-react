@@ -25,7 +25,7 @@ const Admin = (props) => {
   const [allQualisScores, setAllQualisScores] = useState([]);
   const [area, setArea] = useState({});
   const [authors, setAuthors] = useState([]);
-  const [groups, setGroups] = useState([]);
+  const [groups, setGroups] = useState({});
   const [authorsNameLink, setAuthorsNameLink] = useState([]);
 
   async function getInfos() {

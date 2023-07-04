@@ -174,10 +174,7 @@ const Index = ({
     };
     // add missing years (if any) to author stats
     const pubInfoComplete = addMissingYearsToPubInfo(mergedPubInfos);
-    console.log('mergedPubInfos', mergedPubInfos);
-    console.log('pubInfoComplete', pubInfoComplete);
     authorStats = addMissingYearsToAuthorStats(getQualisStats(pubInfoComplete, 'qualis', scores), pubInfoComplete);
-    console.log('authorStats', authorStats);
 
     // get total journal publications
     var totalPubs = 0;
@@ -197,7 +194,7 @@ const Index = ({
     setEndYearInput(years[years.length-1]);
     setInitYear(years[0]);
     setEndYear(years[years.length-1]);
-    setPubInfo(mergedPubInfos);
+    setPubInfo(pubInfoComplete);
   }
 
   return (
@@ -381,7 +378,7 @@ const Index = ({
       <div className="header pb-8 pt-5 pt-md-8">
       </div>
       {/* Page content */}
-      <Container className="mt--7 mb-5" fluid>
+      <Container className=" mb-5" fluid>
         {showAll && <>
           {viewType === "qualisTableView" && <DataTable tableName="Tabela de classificação Qualis" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}
           {viewType === "qualisGraphicView" && <DataGraph graphName="Gráfico de classificação Qualis" init={initYearInput} end={endYearInput} stats={stats} showStatistics={showStatistics}/>}

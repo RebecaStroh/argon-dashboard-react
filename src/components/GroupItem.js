@@ -45,8 +45,8 @@ const GroupItem = ({
   const toggle = () => setModal(!modal);
   const toggleModalAreaSelect = () => setModalAreaSelect(!modalAreaSelect);
 
-  const handleSaveButton = () => {
-    addCVinGroup(groupId, selectedAuthors);
+  const handleSaveButton = async () => {
+    await addCVinGroup(groupId, selectedAuthors);
     toggle();
     updateGroups();
   }
@@ -67,8 +67,8 @@ const GroupItem = ({
     exportGroupCV(authors.map(author => author.link), areaData);
   }
 
-  const handleGroupDelete = () => {
-    deleteGroup(groupId);
+  const handleGroupDelete = async () => {
+    await deleteGroup(groupId);
     updateGroups();
   }
 

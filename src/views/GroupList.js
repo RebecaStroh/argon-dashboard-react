@@ -41,8 +41,8 @@ const GroupList = ({
 
   const toggle = () => setModal(!modal);
 
-  const handleNewButton = () => {
-    addNewGroup(newGroupName, newGroupAuthors);
+  const handleNewButton = async () => {
+    await addNewGroup(newGroupName, newGroupAuthors);
     toggle();
     setNewGroupAuthors([]);
     setNewGroupName("");

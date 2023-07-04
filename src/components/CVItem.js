@@ -32,14 +32,14 @@ const CVItem = ({
 
   const toggleModalAreaSelect = () => setModalAreaSelect(!modalAreaSelect);
 
-  function handleRemoveButton(e) {
+  const handleRemoveButton = async (e) => {
     let result;
     if (group) { // deletar de grupo
       result = window.confirm(
         `Confirma a remoção de ${authorName} do grupo ${groupName}?`
       );
       if (result) {
-        removeCVfromGroup(group, CVLink);
+        await removeCVfromGroup(group, CVLink);
         updateGroups();
       } else {
         e.preventDefault();

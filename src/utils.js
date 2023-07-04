@@ -19,6 +19,7 @@ Array.prototype.mean = function () {
 
 Array.prototype.median = function () {
   const mid = Math.floor(this.length / 2);
+  console.log("fui chamado: ", this.slice());
   const sorted = this.slice().sort((a, b) => a - b);
   return this.length % 2 !== 0
     ? sorted[mid]
@@ -126,9 +127,9 @@ export async function fetchJSON(url) {
  */
 
 export async function getLattesData() {
-  const module = await import("./dataTest.json");
-  const lattesData = await module.default;
-  // const lattesData = await chrome.storage.local.get('lattes_data');
+  // const module = await import("./dataTest.json");
+  // const lattesData = await module.default;
+  const lattesData = await chrome.storage.local.get('lattes_data');
   
   return lattesData['lattes_data'] || {};
 }
@@ -140,23 +141,19 @@ export async function getAuthorData(author) {
 }
 
 export async function getAreasData() {
-  const module = await import("./qualis-scores-by-area-2017-2020.json");
-  const areasData = module.default;
-  // areasData = await fetchJSON(chrome.runtime.getURL('data/qualis-scores-by-area-2017-2020.json')));
+  // const module = await import("./qualis-scores-by-area-2017-2020.json");
+  // const areasData = module.default;
+  const areasData = [];//await fetchJSON(chrome.runtime.getURL('data/qualis-scores-by-area-2017-2020.json'));
   
   return areasData || [];
 }
 
 export async function getGroups() {
-  let groupsData = JSON.parse(localStorage.getItem("groupData"));
-  // groupsData = await fetchJSON(chrome.runtime.getURL('data/groupTest.json'));
-
-  if (!groupsData) {
-    groupsData = [];
-    localStorage.setItem("groupData", JSON.stringify(groupsData));
-  }
-  
-  return groupsData || [];
+  // let groupsData = JSON.parse(localStorage.getItem("groupData"));
+  let groupsData = await chrome.storage.local.get('groupData');
+  const result = groupsData['groupData'] || {};
+  console.log("result", result);
+  return result;
 }
 
 export async function getArea() {
@@ -166,42 +163,47 @@ export async function getArea() {
 }
 
 export async function addNewGroup(groupName, authors) {
-  const groupsData = JSON.parse(localStorage.getItem("groupData"));
+  const groupsData = await getGroups();
+  const ids = Object.keys(groupsData);
 
-  const lastId = Object.keys(groupsData)[Object.keys(groupsData).length-1];
+  const lastId = ids.length === 0 ? 0 : ids[Object.keys(groupsData).length-1];
   groupsData[Number(lastId)+1] = {
     name: groupName,
     authors: authors
   };
 
   // Save it back
-  localStorage.setItem("groupData", JSON.stringify(groupsData));
+  // localStorage.setItem("groupData", JSON.stringify(groupsData));
+  await chrome.storage.local.set({ groupData: groupsData });
 }
 
 export async function deleteGroup(group) {
-  const groupsData = JSON.parse(localStorage.getItem("groupData"));
+  const groupsData = await getGroups();
 
   delete groupsData[group];
 
   // Save it back
-  localStorage.setItem("groupData", JSON.stringify(groupsData));
+  // localStorage.setItem("groupData", JSON.stringify(groupsData));
+  await chrome.storage.local.set({ groupData: groupsData });
 }
 
 export async function addCVinGroup(group, selectedAuthors) {
-  const groupsData = JSON.parse(localStorage.getItem("groupData"));
+  const groupsData = await getGroups();
   const groupData = groupsData[group];
   groupData.authors = groupData.authors.concat(selectedAuthors); //.filter((value, index, self) => self.indexOf(value) === index)
   
-  localStorage.setItem("groupData", JSON.stringify(groupsData));
+  // localStorage.setItem("groupData", JSON.stringify(groupsData));
+  await chrome.storage.local.set({ groupData: groupsData });
 }
 
 export async function removeCVfromGroup(group, author) {
-  const groupsData = JSON.parse(localStorage.getItem("groupData"));
+  const groupsData = await getGroups();
   const groupData = groupsData[group];
 
   groupData.authors = groupData.authors.filter(currAuthor => currAuthor !== author);
   
-  localStorage.setItem("groupData", JSON.stringify(groupsData));
+  // localStorage.setItem("groupData", JSON.stringify(groupsData));
+  await chrome.storage.local.set({ groupData: groupsData });
 }
 
 export async function removerCVfromDB(author) {
@@ -221,9 +223,7 @@ export async function removerCVfromDB(author) {
  * Exports
  */
 export async function exportGroupCV(authors, areaData) {
-  const module = await import("./dataTest.json");
-  let lattesData = await module.default;
-  lattesData = lattesData['lattes_data'] || {};
+  const lattesData = await getLattesData();
 
   const authorsData = Object.keys(lattesData)
     .map(authorLink => authors.includes(authorLink) ? {link: authorLink, ...lattesData[authorLink]} : null)
