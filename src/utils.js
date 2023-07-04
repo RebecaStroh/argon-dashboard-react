@@ -289,7 +289,7 @@ export async function exportCV(authorLink, areaData) {
 
 function exportCVDataToFile(authorsData, areaData) {
   // export author data in CSV format
-  console.log({
+  chrome.downloads.download({
     url:
       'data:text/csv;charset=utf-8,' +
       encodeURIComponent(convertLattesDataToCSV(authorsData, areaData)),
