@@ -74,8 +74,12 @@ const TopTable = ({
               {topPubs.map((topPub, index) => <tr>
                 <td>{index+1}</td>
                 <td>{topPub.year}</td>
-                <td>{topPub.title}</td>
-                <td>{topPub.pubName}</td>
+                <td style={{
+                  whiteSpace: 'break-spaces'
+                }}>{topPub.title}</td>
+                <td style={{
+                  whiteSpace: 'break-spaces'
+                }}>{topPub.pubName}</td>
                 <td>{topPub.issn}</td>
                 <td>{topPub.qualis}</td>
                 <td>{topPub.baseYear}</td>
