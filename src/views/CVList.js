@@ -21,7 +21,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 const CVList = ({
   authorsNameLink,
-  allQualisScores
+  allQualisScores,
+  updateAuthors
 }) => {
   const [filteredAuthors, setFilteredAuthors] = useState(authorsNameLink);
   const searchAuthor = (event, values) => {
@@ -29,6 +30,11 @@ const CVList = ({
       setFilteredAuthors(authorsNameLink);
     else
       setFilteredAuthors([values]);
+  }
+
+  const updateCurrAuthors = (authorLink) => {
+    setFilteredAuthors(filteredAuthors.filter(author => author.link !== authorLink));
+    updateAuthors();
   }
 
   return (
@@ -84,7 +90,7 @@ const CVList = ({
               </CardHeader>
               <CardBody>
                 <Row className="icon-examples">
-                  {filteredAuthors.map(author => <CVItem authorName={author.name} CVLink={author.link} key={author.link} allQualisScores={allQualisScores}/>)}
+                  {filteredAuthors.map(author => <CVItem authorName={author.name} CVLink={author.link} key={author.link} allQualisScores={allQualisScores} updateAuthors={updateCurrAuthors}/>)}
                 </Row>
               </CardBody>
             </Card>

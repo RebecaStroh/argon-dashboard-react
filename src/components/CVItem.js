@@ -24,6 +24,7 @@ const CVItem = ({
   group,
   groupName,
   updateGroups,
+  updateAuthors,
   allQualisScores
 }) => {
   const [modalAreaSelect, setModalAreaSelect] = useState(false);
@@ -50,7 +51,8 @@ const CVItem = ({
       );
   
       if (result) {
-        removerCVfromDB(CVLink);
+        await removerCVfromDB(CVLink);
+        updateAuthors(CVLink);
       } else {
         e.preventDefault();
       }

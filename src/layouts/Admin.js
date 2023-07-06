@@ -51,6 +51,15 @@ const Admin = (props) => {
   const updateGroups = async () => {
     setGroups(await getGroups());
   }
+  
+  const updateAuthors = async () => {
+    setGroups(await getGroups());
+    // Get Authors
+    getLattesData().then(async (authorList) => {
+      setAuthors(authorList);
+      setAuthorsNameLink(Object.entries(authorList).map(author =>( {link: author[0],name: author[1].name})));
+    });
+  }
 
   const routes = [
     {
@@ -60,7 +69,7 @@ const Admin = (props) => {
     },
     {
       path: "/cv-list",
-      component: <CVList authorsNameLink={authorsNameLink} allQualisScores={allQualisScores}/>,
+      component: <CVList authorsNameLink={authorsNameLink} allQualisScores={allQualisScores} updateAuthors={updateAuthors}/>,
       layout: "/admin",
     },
     {

@@ -151,9 +151,8 @@ export async function getAreasData() {
 export async function getGroups() {
   // let groupsData = JSON.parse(localStorage.getItem("groupData"));
   let groupsData = await chrome.storage.local.get('groupData');
-  const result = groupsData['groupData'] || {};
-  console.log("result", result);
-  return result;
+
+  return groupsData['groupData'] || {};
 }
 
 export async function getArea() {
@@ -206,17 +205,29 @@ export async function removeCVfromGroup(group, author) {
   await chrome.storage.local.set({ groupData: groupsData });
 }
 
+// delete CV data from lattes data and save it back to local storage area
 export async function removerCVfromDB(author) {
-  // delete CV data from lattes data and save it back to local storage area
-  // deleteLattesAuthorData(author);
-  // handleAuthorSelector("");
-  // setViewType("");
+  const lattesData = await getLattesData();
+  const groupsData = await getGroups();
 
-  // delete authors[author];
+  // check if there is an 
+  if (Object.keys(lattesData).length == 0) {
+    alert('Não achamos nenhum CV salvo.');
+    return;
+  }
 
-  // props.updateAuthorsList(authors);
+  // delete author data from Lattes data
+  delete lattesData[author];
 
-  alert('Remove CV from DB!');
+  // remove author from all groups
+  Object.keys(groupsData).forEach(async(group) => {
+    await removeCVfromGroup(group, author);
+  });
+
+  // save Lattes data back to storage area
+  await chrome.storage.local.set({ lattes_data: lattesData }).then(() => {
+    console.log('Lattes data removed!');
+  });
 }
 
 /**

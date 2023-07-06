@@ -52,7 +52,6 @@ const TopTable = ({
   }
   // return top N publications from sorted publication array sorted by Qualis classification
   topPubs = topPubs.sortByKeysReverse(['year']).sortByKeys(['qualis']).slice(0, topN);
-  console.log("topPubs", topPubs)
 
   return (
     <Row>
