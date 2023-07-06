@@ -143,7 +143,7 @@ export async function getAuthorData(author) {
 export async function getAreasData() {
   // const module = await import("./qualis-scores-by-area-2017-2020.json");
   // const areasData = module.default;
-  const areasData = [];//await fetchJSON(chrome.runtime.getURL('data/qualis-scores-by-area-2017-2020.json'));
+  const areasData = await fetchJSON(chrome.runtime.getURL('data/qualis-scores-by-area-2017-2020.json'));
   
   return areasData || [];
 }
