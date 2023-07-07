@@ -127,8 +127,6 @@ export async function fetchJSON(url) {
  */
 
 export async function getLattesData() {
-  // const module = await import("./dataTest.json");
-  // const lattesData = await module.default;
   const lattesData = await chrome.storage.local.get('lattes_data');
   
   return lattesData['lattes_data'] || {};
@@ -141,15 +139,12 @@ export async function getAuthorData(author) {
 }
 
 export async function getAreasData() {
-  // const module = await import("./qualis-scores-by-area-2017-2020.json");
-  // const areasData = module.default;
   const areasData = await fetchJSON(chrome.runtime.getURL('data/qualis-scores-by-area-2017-2020.json'));
   
   return areasData || [];
 }
 
 export async function getGroups() {
-  // let groupsData = JSON.parse(localStorage.getItem("groupData"));
   let groupsData = await chrome.storage.local.get('groupData');
 
   return groupsData['groupData'] || {};
@@ -172,7 +167,6 @@ export async function addNewGroup(groupName, authors) {
   };
 
   // Save it back
-  // localStorage.setItem("groupData", JSON.stringify(groupsData));
   await chrome.storage.local.set({ groupData: groupsData });
 }
 
@@ -182,16 +176,14 @@ export async function deleteGroup(group) {
   delete groupsData[group];
 
   // Save it back
-  // localStorage.setItem("groupData", JSON.stringify(groupsData));
   await chrome.storage.local.set({ groupData: groupsData });
 }
 
 export async function addCVinGroup(group, selectedAuthors) {
   const groupsData = await getGroups();
   const groupData = groupsData[group];
-  groupData.authors = groupData.authors.concat(selectedAuthors); //.filter((value, index, self) => self.indexOf(value) === index)
+  groupData.authors = groupData.authors.concat(selectedAuthors); 
   
-  // localStorage.setItem("groupData", JSON.stringify(groupsData));
   await chrome.storage.local.set({ groupData: groupsData });
 }
 
@@ -201,7 +193,6 @@ export async function removeCVfromGroup(group, author) {
 
   groupData.authors = groupData.authors.filter(currAuthor => currAuthor !== author);
   
-  // localStorage.setItem("groupData", JSON.stringify(groupsData));
   await chrome.storage.local.set({ groupData: groupsData });
 }
 

@@ -3,7 +3,7 @@ import { useLocation, Route, Routes, Navigate } from "react-router-dom";
 // core components
 import Sidebar from "components/Sidebar.js";
 
-import { getAreasData, getLattesData, getGroups, getArea } from '../utils';
+import { getAreasData, getLattesData, getGroups } from './utils';
 import Index from "views/Index.js";
 import GroupList from "views/GroupList.js";
 import CVList from "views/CVList.js";
@@ -12,7 +12,7 @@ import Questions from "views/Questions";
 import OtherInfos from "views/OtherInfos";
 import Credits from "views/Credits";
 
-const Admin = (props) => {
+const IndexLayout = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();
 
@@ -110,7 +110,7 @@ const Admin = (props) => {
         routes={routes}
         logo={{
           innerLink: "/admin/index",
-          imgSrc: require("../assets/img/qlattes-logo.png"),
+          imgSrc: require("./assets/img/qlattes-logo.png"),
           imgAlt: "Qlattes",
         }}
       />
@@ -126,4 +126,4 @@ const Admin = (props) => {
   );
 };
 
-export default Admin;
+export default IndexLayout;

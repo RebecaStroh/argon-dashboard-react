@@ -1,193 +1,188 @@
-# [Argon Dashboard React](https://demos.creative-tim.com/argon-dashboard-react?ref=adr-github-readme) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/home?status=Argon%20Dashboard%20is%20a%20Free%20Bootstrap%204,%20React%20and%20Reactstrap%20Dashboard%20made%20using%20create-react-app%20%E2%9D%A4%EF%B8%8F%0Ahttps%3A//demos.creative-tim.com/argon-dashboard-react%20%23react%20%23reactstrap%20%23createreactapp%20%23argon%20%23argondesign%20%23reactdashboard%20%23argonreact%20%23reactdesign%20%23bootstrap%20%23material%20%23design%20%23uikit%20%23freebie%20%20via%20%40CreativeTim)
+<img src="./img/qlattes-blue-logo-transp-border.png" height=80>
 
-![version](https://img.shields.io/badge/version-1.2.3-blue.svg) ![license](https://img.shields.io/badge/license-MIT-blue.svg) [![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/argon-dashboard-react.svg?maxAge=2592000)](https://github.com/creativetimofficial/argon-dashboard-react/issues?q=is%3Aopen+is%3Aissue) [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/argon-dashboard-react.svg?maxAge=2592000)](https://github.com/creativetimofficial/argon-dashboard-react/issues?q=is%3Aissue+is%3Aclosed) [![Join the chat at https://gitter.im/NIT-dgp/General](https://badges.gitter.im/NIT-dgp/General.svg)](https://gitter.im/creative-tim-general/Lobby) [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/E4aHAQy)
+QLattes é uma extensão para navegadores [Chromium](https://www.chromium.org/Home/) (por exemplo, [Chrome](https://www.google.com/chrome/), [Microsoft Edge](https://www.microsoft.com/edge), [Opera](https://www.opera.com/), e [Brave](https://brave.com/)) e [Mozilla Firefox](https://www.mozilla.org/firefox/) que automaticamente classifica os artigos em periódicos identificados nas páginas dos CVs da [Plataforma Lattes](https://lattes.cnpq.br/) do CNPq, de acordo com o novo Qualis da CAPES.
 
-![Product Gif](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-react/argon-dashboard-react.gif)
+* [Instalação](#instalação)
+* [Instruções de uso](#instruções-de-uso)
+* [Fontes de dados](#fontes-de-dados)
+* [Melhorias futuras](#melhorias-futuras)
+* [Política de privacidade](#política-de-privacidade)
+* [Créditos](#créditos)
+* [Comentários e sugestões](#comentários-e-sugestões)
+* [QLattes nas redes sociais](#qlattes-nas-redes-sociais)
 
-Start your development with a Dashboard for [Bootstrap 4](https://getbootstrap.com/?ref=creativetim), [React](https://reactjs.org/?ref=creativetim) and [Reactstrap](https://reactstrap.github.io/?ref=creativetim), made with [create-react-app](https://facebook.github.io/create-react-app/?ref=creativetim). It is open source, free and it features many components that can help you create amazing websites.
+## Instalação
 
-**Fully Coded Components**
+Há duas maneiras de instalar a QLattes: automaticamente, da [Chrome Web Store](https://chrome.google.com/webstore/) (para navegadores compatíveis com o Chromium) ou da [página de extensões da Mozilla](https://addons.mozilla.org/firefox/extensions/) (para navegadores Mozilla Firefox), e manualmente. A instalação automática é *fortemente recomendada*, por ser mais fácil e permitir a atualização automática da ferramenta quando novas versões forem disponibilizadas.
 
-Argon Dashboard React is built with over 100 individual components, giving you the freedom of choosing and combining. All components can take variations in color, that you can easily modify using SASS files.
-You will save a lot of time going from prototyping to full-functional code, because all elements are implemented. This Dashboard is coming with pre-built examples, so the development process is seamless, switching from our pages to the real website is very easy to be done.
-Every element has multiple states for colors, styles, hover, focus, that you can easily access and use.
+### Instalação automática
 
-**Complex Documentation**
+#### Instalação da Chrome Web Store
 
-Each element is well presented in a very complex documentation. You can read more about the idea behind this [dashboard here](https://demos.creative-tim.com/argon-dashboard-react/#/documentation/overview?ref=creativetim). You can check the [components here](https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=creativetim) and the [foundation here](https://demos.creative-tim.com/argon-dashboard/#/documentation/colors?ref=creativetim).
+Abra a [página da QLattes](https://chrome.google.com/webstore/detail/cobekobjpobenpjdggbpkkklkcfoinen) na Chrome Web Store e clique no botão "Usar no Chrome". Se tiver dúvidas sobre a instalação, leia as instruções disponíveis neste [link](https://support.google.com/chrome_webstore/answer/2664769?hl=pt-BR).
 
-**Example Pages**
+#### Instalação da página de extensões da Mozilla
 
-If you want to get inspiration or just show something directly to your clients, you can jump start your development with our pre-built example pages. You will be able to quickly set up the basic structure for your web project.
+Abra a [página da QLattes](https://addons.mozilla.org/firefox/addon/qlattes/) na página de extensões da Mozilla e clique no botão "Adicionar ao Firefox". QLattes requer a versão 109 ou superior do Firefox. Se a versão do seu navegador for anterior a esta, atualize o seu navegador para a versão mais recente antes de instalar a QLattes. Após a instalação, é necessário dar permissão à QLattes para acessar a pagina de visualização de CV da Plataforma Lattes.  Para fazer isso, clique no ícone de extensões do Firefox, no formato de uma peça de quebra-cabeça, localizado ao lado direito da barra de endereços do navegador, e em seguida clique no ícone de configuração da QLattes, no formato de uma engrenagem, localizado próximo ao ícone da QLattes. Se tiver dúvidas sobre a instalação, leia as instruções disponíveis neste [link](https://support.mozilla.org/pt-BR/kb/encontre-e-instale-extensoes-no-firefox).
 
-## Table of Contents
+### Instalação manual
 
-- [Versions](#versions)
-- [Demo](#demo)
-- [Quick Start](#quick-start)
-- [Documentation](#documentation)
-- [File Structure](#file-structure)
-- [Browser Support](#browser-support)
-- [Resources](#resources)
-- [Reporting Issues](#reporting-issues)
-- [Licensing](#licensing)
-- [Useful Links](#useful-links)
+Baixe o arquivo [.zip](https://github.com/nabormendonca/qlattes/archive/refs/heads/main.zip) com o código fonte deste repositório para o seu computador. Após descompactar o arquivo, os aquivos necessários para a instalação manual da QLattes estarão na pasta "dist". 
 
-## Versions
+Para instalação manual em navegadores Chromium, siga as intruções disponíveis neste [link](https://canaltech.com.br/navegadores/como-instalar-extensao-no-google-chrome-manualmente/).
 
-[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/html-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/argon-dashboard?ref=adr-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/react-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/argon-dashboard-react?ref=adr-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/angular-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/argon-dashboard-angular)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/nodejs-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/argon-dashboard-nodejs?ref=adr-github-readme)[<img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/laravel_logo.png" width="60" height="60" style="background:white"/>](https://www.creative-tim.com/product/argon-dashboard-laravel?ref=adr-github-readme)[<img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/sketch-logo.jpg" width="60" height="60" />](https://www.creative-tim.com/product/argon-dashboard-react?ref=adr-github-readme)
+Para instalação manual em navegadores Mozilla Firefox, siga as intruções disponíveis neste [link](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/).
 
-| HTML                                                                                                                                                                                           | React                                                                                                                                                                                                             | Angular                                                                                                                                                                                                                   |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![Argon Dashboard HTML](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard/argon-dashboard.jpg?raw=true)](https://www.creative-tim.com/product/argon-dashboard) | [![Argon Dashboard React](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-react/argon-dashboard-react.jpg?raw=true)](https://www.creative-tim.com/product/argon-dashboard-react) | [![Argon Dashboard Angular](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-angular/argon-dashboard-angular.jpg?raw=true)](https://www.creative-tim.com/product/argon-dashboard-angular) |
+## Instruções de uso
 
-| NodeJS                                                                                                                                                                                                                | Laravel                                                                                                                                                                                                                   |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![Argon Dashboard NodeJS](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-nodejs/argon-dashboard-nodejs.jpg?raw=true)](https://www.creative-tim.com/product/argon-dashboard-nodejs) | [![Argon Dashboard Laravel](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-laravel/argon-dashboard-laravel.jpg?raw=true)](https://www.creative-tim.com/product/argon-dashboard-laravel) |
+Após a instalação da QLattes, abra a página de um ou mais CV Lattes no seu navegador.
 
-## Demo
+QLattes automaticamente anotará o Qualis dos artigos completos em periódicos diretamente nas páginas dos CVs. Navegue até a seção de "Artigos completos publicados em periódicos" dos CVs para visualizar as anotações, localizadas logo abaixo das informações de cada artigo (ver exemplo abaixo).
 
-| Dashboard Page                                                                                                                                                                                              | Icons Page                                                                                                                                                                                          | Tables Page                                                                                                                                                                                            | Maps Page                                                                                                                                                                                        |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [![Dashboard Page](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-react/dashboard-page.png?raw=true)](https://demos.creative-tim.com/argon-dashboard-react/#/admin/index) | [![Icons Page](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-react/icons-page.png?raw=true)](https://demos.creative-tim.com/argon-dashboard-react/#/admin/icons) | [![Tables Page](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-react/tables-page.png?raw=true)](https://demos.creative-tim.com/argon-dashboard-react/#/admin/tables) | [![Maps Page](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-react/maps-page.png?raw=true)](https://demos.creative-tim.com/argon-dashboard-react/#/admin/maps) |
+<img src="./img/qlattes-annotations.png" height=350>
 
-| Register Page                                                                                                                                                                                             | Login Page Page                                                                                                                                                                                         | Profile Page                                                                                                                                                                                                |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![Login Page](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-react/register-page.png)](https://demos.creative-tim.com/argon-dashboard-react/#/auth/register) | [![Login Page Page](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-react/login-page.png?raw=true)](https://demos.creative-tim.com/argon-dashboard-react/#/auth/login) | [![Profile Page](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-react/user-page.png?raw=true)](https://demos.creative-tim.com/argon-dashboard-react/#/admin/user-profile) |
+As anotações adicionadas pela ferramenta incluem a classificação Qualis e o ISSN do periódico no qual o artigo foi publicado, o link para a página do periódico na Scopus (quando disponível), e a fonte de dados e o ano-base utilizados para classificar o periódico.
 
-[View More](https://demos.creative-tim.com/argon-dashboard-react?ref=adr-github-readme)
+### Visualização dos dados
 
-## Quick start
+Para visualizar os dados de classificação dos artigos de forma consolidada, abra a página da ferramenta clicando no ícone da extensão em seguida clique no menu "Visualização", na barra lateral. Após selecionar um CV, QLattes oferecerá diferentes opções para o usuário filtrar e visualizar os dados do CV por período. Para ajustar o período de visualização, utilize as opções de manipulação dos anos inicial e final do período, ou escolha um dos períodos pré-selecionados pela ferramenta.
 
-- `npm i argon-dashboard-react`
-- [Download from Github](https://github.com/creativetimofficial/argon-dashboard-react/archive/master.zip).
-- [Download from Creative Tim](https://www.creative-tim.com/product/argon-dashboard-react?ref=adr-github-readme).
-- Install with [Bower](https://bower.io/?ref=creativetim): `bower install argon-dashboard-react`.
-- Clone the repo: `git clone https://github.com/creativetimofficial/argon-dashboard-react.git`.
+A atual versão da QLattes implementa quatro tipos de visualização:
 
-## Documentation
+* Gráfico de classificação Qualis
+* Tabela de classificação Qualis
+* 5 melhores publicações
+* 10 melhores publicações
+
+As duas primeiras visualizações exibem, na forma de um gráfico e de uma tabela, respectivamente, a quantidade de artigos encontrados no CV para cada estrato do Qualis, consolidados por ano (ver exemplos abaixo). Além disso, ambas visualizações oferecem a opção de exibir estatísticas como a média, a mediana, e a tendência de alguns indicatores para o período selecionado. A tendência é calculada pela inclinação da reta obtida via regressão linear sobre os números de publicações de cada indicador agregado ao longo do período selecionado.
+
+<img src="./img/qlattes-graphic-view.png" height=350>
+<img src="./img/qlattes-table-view.png" height=350>
+
+A visualização na forma de gráfico possui elementos visuais ativos. Passe o mouse sobre os elementos do gráfico para revelar os respectivos valores. Clique nos elementos da legenda para ocultar/exibir os elementos do gráfico referentes a estratos específicos do Qualis.
+
+As duas últimas visualizações, como os nomes sugerem, mostram os dados das 5/10 publicações mais bem classificadas no Qualis no período selecionado (ver exemplo abaixo). O ranque das publicações é criado com base na classificação Qualis de cada publicação, com o ano de publicação sendo utilizado como critério de desempate (publicações mais recentes são exibidas à frente de publicações mais antigas).
+
+<img src="./img/qlattes-top-papers-view.png" height=350>
+
+Artigos publicados em periódicos cujo ISSN não foram encontrado em nenhuma das fontes de dados utilizadas pela ferramenta são anotados nas páginas dos CVs como "Não classificado." QLattes representa os números referentes aos artigos não classificados atribuindo-lhes o estrato "N" nas diferentes visualizações que exibe.
+
+### Remoção dos dados
+
+Os dados extraídos e consolidados pela QLattes podem ser removidos a qualquer momento pelo usuário. Para isso, basta clicar no botão em formato de lixeira, localizado ao lado do nome da pessoa autora do CV. A ferramenta solicitará ao usuário que confirme a remoção dos dados do CV, antes de removê-los em definitivo. Uma vez confirmada a remoção dos dados, será necessário atualizar ou (re)abrir a página do CV para visualizar seus dados novamente.
+
+## Fontes de dados
+
+QLattes utiliza três fontes de dados para classificar os artigos em periódico, todas incluídas junto com a ferramenta:
+
+* fonte de dados da CAPES
+* fonte de dados da PUC-RS
+* fonte de dados da Scopus
+
+### Fonte de dados da CAPES
+
+Os dados desta fonte foram coletados da [Plataforma Sucupira](https://sucupira.capes.gov.br/sucupira/public/index.xhtml) da CAPES, ao final de 2022, e incluem a classificação Qualis de 31.337 periódicos de todas as áreas do conhecimento (ano-base 2020).
+
+### Fonte de dados da PUC-RS
+
+Os dados desta fonte foram coletados da página do Qualis da [PUC-RS](https://ppgcc.github.io/discentesPPGCC/pt-BR/qualis/), em dezembro de 2022, e incluem a classificação Qualis e o percentil Scopus de 2.190 periódicos (ano-base 2021), predominantemente da área de Ciência da Computação.
+
+### Fonte de dados da Scopus
+
+Os dados desta fonte foram coletados do [portal da Scopus](https://www.scopus.com/sources.uri), em maio de 2021, e incluem os percentis de 25.990 periódicos internacionais de todas as áreas do conhecimento (ano-base 2020). QLattes classifica os periódicos encontrados exclusivamente nesta fonte tomando como base as [regras de distribuição de percentis](https://www.in.gov.br/en/web/dou/-/portaria-n-145-de-10-de-setembro-de-2021-344468240) estabelecidas pela CAPES:
+
+| Classificação	| Distribuição |
+| :---: | :---: | 
+| A1	| percentil ≥ 87,5 |
+| A2	|	75 ≤ percentil < 87,5 |
+| A3	|	62,5 ≤ percentil < 75 |
+| A4	|	50 ≤ percentil < 62,5 |
+| B1	|	37,5 ≤ percentil < 50 |
+| B2	|	25 ≤ percentil < 37,5 |
+| B3	|	12,5 ≤ percentil < 25 |
+| B4	|	percentil < 12,5 |
+
+### Método de busca
+
+QLattes consulta uma fonte de dados de cada vez, por ordem de atualização dos dados de cada fonte, da mais recente (CAPES) à mais antiga (Scopus), utilizando o ISSN dos periódicos extraído do CVs como chave de busca. Se os dados de um periódico não forem encontrados na primeira fonte de dados consultada, a ferramenta busca esses dados na próxima fonte de dados, e assim sucessivamente.
+
+### Critérios de Inclusão
+
+Cada uma das três fontes de dados inclui apenas as informações referentes à melhor classificação no Qualis, ou o maior percentil, de cada periódico, independentemente de área de conhecimento. Esta decisão está em conformidade com a atual política de classificação de periódicos adotada pela CAPES, e foi tomada para melhorar a eficiência da ferramenta e reduzir seu consumo de recursos no navegador.
+
+Embora as três fontes possuam dados redundantes, com a classificação ou o percentil Scopus de muitos periódicos estando presente em mais de uma delas, o fato de cada fonte incluir dados de periódicos inexistentes nas outras fontes justifica a incorporação das três fontes pela ferramenta.
+
+## Melhorias futuras
+
+Essas são algumas das melhorias sendo atualmente consideradas para futuras versões da QLattes:
+
+* exibição dos dados consolidados de múltiplos CVs
+* integração com outras fontes de classificação de veículos científicos
+* classificação dos artigos publicados em eventos
+* armazenamento dos dados extraídos dos CVs em arquivo
+
+### Exibição dos dados de múltiplos CVs
+
+Esta funcionalidade facilitaria a comparação da produção de um grupo de pessoas, por exemplo, os membros de um determinado corpo docente, departamento, ou instituição. Além de envolver o re-desenho das visualizações atualmente implementadas, outro desafio aqui é o fato da Plataforma Lattes (ou pelo menos a sua interface web nativa) não permitir o acesso aos dados dos CVS em bloco. Ou seja, mesmo que a ferramenta permitisse a visualização dos dados de múltiplos CVs simultaneamente, esses dados ainda teriam que ser extraídos abrindo-se as páginas dos CVs uma a uma.
+
+### Integração com outras fontes de métricas
+
+Uma extensão natural da ferramenta seria permitir a visualização dos dados dos CVs integrados aos dados das mesmas pessoas obtidos de outras fontes de métricas acadêmicas, como [Google Acadêmico](https://scholar.google.com/) e [CSIndexbr](https://csindexbr.org/). O desafio, nesse caso, seria a necessidade da ferramenta acessar essas fontes externas durante o processamento dos dados dos CVs, o que poderia afetar a sua eficiência e resiliência.
+
+### Classificação de eventos
+
+O desafio aqui é o fato dos eventos não possuírem um identificador único, como o ISSN dos periódicos. Sem tal identificador, a classificação dos eventos tem que ser feita com base apenas na informação sobre os eventos registradas nos CVs, que, em essência, não possui uma estrutura bem definida. Isso aumenta o risco da classificação automática dos eventos conter muitos falsos positivos ou falsos negativos.
+
+Uma alternativa interessante seria utilizar a própria ferramenta como uma plataforma colaborativa para treinamento supervisionado de modelos de aprendizado de máquina criados especificamente para identificar eventos nas informações contidas nos CVs Lattes. Por exemplo, a ferramenta poderia sugerir a classificação dos eventos registrados no CV, e o usuário então confirmaria ou revisaria a classificação sugerida.
+
+### Armazenamento dos dados dos CVs em arquivo
+
+Esta funcionalidade permitiria armazenar os dados extraídos dos CVs em arquivos externos, os quais poderiam ser novamente recuperados pela ferramenta posteriormente. Essa melhoria facilitaria a análise e visualização dos dados de um grande número de CVs, por exemplo, de todo o corpo docente de um departamento acadêmico, os quais poderiam ser extraídos e armazenados gradualmente. Outra vantagem seria a possibilidade de analisar os dados extraídos pela QLattes utilizando outras ferramentas e tecnologias.
+
+Voluntários e colaboradores para implementar essas e outras melhorias são muito bem vindos!
+
+## Política de privacidade
+
+QLattes foi desenvolvida como um projeto pessoal, de código aberto, sem qualquer vínculo com a CAPES, o CNPq ou outras entidades governamentais.
+
+A ferramenta incorpora e utiliza dados de classificação de periódicos publicamente disponíveis. A extração, a classificação, e o armazenamento dos dados das publicações são feitos internamente, no próprio navegador, sem acessar nenhuma API ou serviço remoto.
+
+## Créditos
+
+Concepção e implementação: [Nabor Mendonça](https://sites.google.com/site/nabormendonca/) (UNIFOR)
+
+Consultoria de conteúdo: Andréia Formico (UNIFOR)
+
+Consultoria técnica: Lucas Mendonça (Instituto Eldorado)
+
+Consultoria sobre a fonte de dados da CAPES: André Luiz F. Batista (IFTM-MG)
+
+Criação da fonte de dados da PUC-RS: Olimar Borges (PUC-RS)
+
+Logo: variação sobre os logos do Qualis e da Plataforma Lattes
+
+## Comentários e sugestões
+
+Utilize este [formulário online](https://forms.gle/ZzHWNSsKUPHBK1WK8) para enviar uma mensagem com comentários, sugestões, relatos de bug, ou simplesmente compartilhar a sua opinião sobre a ferramenta.
+
+## QLattes nas redes sociais
+
+O canal do Youtube [Mineiro de Dados](https://www.youtube.com/@MineirodeDados), de Fábio Gouveia, pesquisador da área de cientometria, já produziu três vídeos sobre a QLattes. Os dois primeiros apresentam as principais funcionalidades da QLattes, enquanto o terceiro é uma conversa com o desenvolvedor da QLattes, prof. Nabor Mendonça, da Universidade de Fortaleza (UNIFOR), onde este último relata os bastidores e algumas curiosidades sobre o desenvolvimento da ferramenta. Seguem os links para os três vídeos:
+
+[QLattes, uma extensão para o Chrome que aplica os Qualis 2017-2020 nos CVs Lattes](https://www.youtube.com/watch?v=4HeqSTvp1r0)
+
+[Recursos avançados do QLattes - Estatísticas de produção para autores](https://www.youtube.com/watch?v=H2-ldIPlfdQ)
+
+[Conversa com o criador do QLattes - Nabor Mendonça da UNIFOR](https://www.youtube.com/watch?v=fjjVyAcJYAs)
+
+## Argon Dashboard Documentation
 
 The documentation for the Material Kit is hosted at our [website](https://demos.creative-tim.com/argon-dashboard-react/#/documentation/overview).
 
-## File Structure
 
-Within the download you'll find the following directories and files:
+**Argon Dashboard Complex Documentation**
 
-```
-Argon Dashboard React
-.
-├── Documentation
-│   └── documentation.html
-├── CHANGELOG.md
-├── ISSUE_TEMPLATE.md
-├── LICENSE
-├── README.md
-├── package.json
-├── public
-│   ├── favicon.ico
-│   ├── index.html
-│   └── manifest.json
-└── src
-    ├── assets
-    │   ├── css
-    │   │   ├── argon-dashboard-react.css
-    │   │   ├── argon-dashboard-react.css.map
-    │   │   └── argon-dashboard-react.min.css
-    │   ├── fonts
-    │   │   └── nucleo
-    │   ├── img
-    │   │   ├── brand
-    │   │   ├── icons
-    │   │   │   └── common
-    │   │   └── theme
-    │   ├── scss
-    │   │   ├── argon-dashboard-react.scss
-    │   │   ├── bootstrap
-    │   │   │   ├── mixins
-    │   │   │   └── utilities
-    │   │   ├── core
-    │   │   │   ├── alerts
-    │   │   │   ├── avatars
-    │   │   │   ├── badges
-    │   │   │   ├── buttons
-    │   │   │   ├── cards
-    │   │   │   ├── charts
-    │   │   │   ├── close
-    │   │   │   ├── custom-forms
-    │   │   │   ├── dropdowns
-    │   │   │   ├── footers
-    │   │   │   ├── forms
-    │   │   │   ├── headers
-    │   │   │   ├── icons
-    │   │   │   ├── list-groups
-    │   │   │   ├── maps
-    │   │   │   ├── masks
-    │   │   │   ├── mixins
-    │   │   │   ├── modals
-    │   │   │   ├── navbars
-    │   │   │   ├── navs
-    │   │   │   ├── paginations
-    │   │   │   ├── popovers
-    │   │   │   ├── progresses
-    │   │   │   ├── separators
-    │   │   │   ├── tables
-    │   │   │   ├── type
-    │   │   │   ├── utilities
-    │   │   │   └── vendors
-    │   │   ├── custom
-    │   │   └── react
-    │   └── vendor
-    │       ├── @fortawesome
-    │       │   └── fontawesome-free
-    │       │       ├── LICENSE.txt
-    │       │       ├── css
-    │       │       ├── js
-    │       │       ├── less
-    │       │       ├── scss
-    │       │       ├── sprites
-    │       │       ├── svgs
-    │       │       │   ├── brands
-    │       │       │   ├── regular
-    │       │       │   └── solid
-    │       │       └── webfonts
-    │       └── nucleo
-    │           ├── css
-    │           └── fonts
-    ├── components
-    │   ├── Footers
-    │   │   ├── AdminFooter.jsx
-    │   │   └── AuthFooter.jsx
-    │   ├── Headers
-    │   │   ├── Header.jsx
-    │   │   └── UserHeader.jsx
-    │   ├── Navbars
-    │   │   ├── AdminNavbar.jsx
-    │   │   └── AuthNavbar.jsx
-    │   └── Sidebar
-    │       └── Sidebar.jsx
-    ├── index.js
-    ├── layouts
-    │   ├── Admin.jsx
-    │   └── Auth.jsx
-    ├── routes.js
-    ├── variables
-    │   └── charts.jsx
-    └── views
-        ├── Index.jsx
-        └── examples
-            ├── Icons.jsx
-            ├── Login.jsx
-            ├── Maps.jsx
-            ├── Profile.jsx
-            ├── Register.jsx
-            └── Tables.jsx
-```
-
-## Browser Support
-
-At present, we officially aim to support the last two versions of the following browsers:
-
-<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/chrome-logo.png?raw=true" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/firefox-logo.png" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/edge-logo.png" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/safari-logo.png" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/opera-logo.png" width="64" height="64">
+Each element is well presented in a very complex documentation. You can read more about the idea behind this [dashboard here](https://demos.creative-tim.com/argon-dashboard-react/#/documentation/overview?ref=creativetim). You can check the [components here](https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=creativetim) and the [foundation here](https://demos.creative-tim.com/argon-dashboard/#/documentation/colors?ref=creativetim).
 
 ## Resources
 
@@ -197,45 +192,3 @@ At present, we officially aim to support the last two versions of the following 
 - License Agreement: <https://www.creative-tim.com/license?ref=adr-github-readme>
 - Support: <https://www.creative-tim.com/contact-us?ref=adr-github-readme>
 - Issues: [Github Issues Page](https://github.com/creativetimofficial/argon-dashboard-react/issues?ref=creativetim)
-- **Kit:**
-
-| HTML                                                                                                                                                                                                            | Vue                                                                                                                                                                                                                       |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![Argon Design System  HTML](https://github.com/creativetimofficial/public-assets/blob/master/argon-design-system/argon-design-system.jpg?raw=true)](https://www.creative-tim.com/product/argon-design-system) | [![Vue Argon Design System](https://github.com/creativetimofficial/public-assets/blob/master/vue-argon-design-system/vue-argon-design-system.jpg?raw=true)](https://www.creative-tim.com/product/vue-argon-design-system) |
-
-## Reporting Issues
-
-We use GitHub Issues as the official bug tracker for the Material Kit. Here are some advices for our users that want to report an issue:
-
-1. Make sure that you are using the latest version of the Material Kit. Check the CHANGELOG from your dashboard on our [website](https://www.creative-tim.com/?ref=adr-github-readme).
-2. Providing us reproducible steps for the issue will shorten the time it takes for it to be fixed.
-3. Some issues may be browser specific, so specifying in what browser you encountered the issue might help.
-
-## Licensing
-
-- Copyright 2023 Creative Tim (https://www.creative-tim.com/?ref=adr-github-readme)
-
-- Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md?ref=creativetim)
-
-## Useful Links
-
-- [Tutorials](https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w?ref=creativetim)
-- [Affiliate Program](https://www.creative-tim.com/affiliates/new?ref=adr-github-readme) (earn money)
-- [Blog Creative Tim](http://blog.creative-tim.com/?ref=adr-github-readme)
-- [Free Products](https://www.creative-tim.com/bootstrap-themes/free?ref=adr-github-readme) from Creative Tim
-- [Premium Products](https://www.creative-tim.com/bootstrap-themes/premium?ref=adr-github-readme) from Creative Tim
-- [React Products](https://www.creative-tim.com/bootstrap-themes/react-themes?ref=adr-github-readme) from Creative Tim
-- [Angular Products](https://www.creative-tim.com/bootstrap-themes/angular-themes?ref=adr-github-readme) from Creative Tim
-- [VueJS Products](https://www.creative-tim.com/bootstrap-themes/vuejs-themes?ref=adr-github-readme) from Creative Tim
-- [More products](https://www.creative-tim.com/bootstrap-themes?ref=adr-github-readme) from Creative Tim
-- Check our Bundles [here](https://www.creative-tim.com/bundles?ref=adr-github-readme)
-
-### Social Media
-
-Twitter: <https://twitter.com/CreativeTim?ref=creativetim>
-
-Facebook: <https://www.facebook.com/CreativeTim?ref=creativetim>
-
-Dribbble: <https://dribbble.com/creativetim?ref=creativetim>
-
-Instagram: <https://www.instagram.com/CreativeTimOfficial?ref=creativetim>
